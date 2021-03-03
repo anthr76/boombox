@@ -1,0 +1,16 @@
+gdb
+glibc-locale
+strace
+ltrace
+traceroute
+iputils
+socat
+supportutils
+tcpdump
+vim
+less
+man
+sudo
+system-group-wheel
+libcap-progs
+container-support-utils
