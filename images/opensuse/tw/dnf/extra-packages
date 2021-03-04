@@ -14,3 +14,9 @@ sudo
 system-group-wheel
 libcap-progs
 container-support-utils
+vte
+bash-completion
+dnf-plugins-core
+git
+lsof
+man-pages
