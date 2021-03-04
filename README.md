@@ -84,9 +84,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![asciicast](https://asciinema.org/a/LOSmlIAVU6J1iHXWbDCGKaFRo.svg)](https://asciinema.org/a/LOSmlIAVU6J1iHXWbDCGKaFRo)
-
-<script id="asciicast-LOSmlIAVU6J1iHXWbDCGKaFRo" src="https://asciinema.org/a/LOSmlIAVU6J1iHXWbDCGKaFRo.js" async></script>
+[![asciicast](docs/images/example.svg)](https://asciinema.org/a/LOSmlIAVU6J1iHXWbDCGKaFRo)
 
 
 
