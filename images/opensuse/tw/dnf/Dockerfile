@@ -8,8 +8,6 @@ LABEL com.github.containers.toolbox="true" \
       summary="Base image for creating OpenSUSE tumbleweed dnf toolbox containers" \
       maintainer="Anthony Rabbito <hello@anthonyrabbito.com>"
 
-COPY README.md /
-
 RUN sed -i '/tsflags=nodocs/d' /etc/dnf/dnf.conf
 
 COPY missing-docs /
