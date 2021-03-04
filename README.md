@@ -180,14 +180,13 @@ Anthony Rabbito - [@anthonyrabbito](https://twitter.com/anthonyrabbito) - hello@
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/anthr76/repo.svg?style=for-the-badge
-[contributors-url]: https://github.com/anthr76/repo/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/anthr76/repo.svg?style=for-the-badge
-[forks-url]: https://github.com/anthr76/repo/network/members
-[stars-shield]: https://img.shields.io/github/stars/anthr76/repo.svg?style=for-the-badge
-[stars-url]: https://github.com/anthr76/repo/stargazers
-[issues-shield]: https://img.shields.io/github/issues/anthr76/repo.svg?style=for-the-badge
-[issues-url]: https://github.com/anthr76/repo/issues
-[license-shield]: https://img.shields.io/github/license/anthr76/repo.svg?style=for-the-badge
-[license-url]: https://github.com/anthr76/repo/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[contributors-shield]: https://img.shields.io/github/contributors/anthr76/tooling.svg?style=for-the-badge
+[contributors-url]: https://github.com/anthr76/tooling/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/anthr76/tooling.svg?style=for-the-badge
+[forks-url]: https://github.com/anthr76/tooling/network/members
+[stars-shield]: https://img.shields.io/github/stars/anthr76/tooling.svg?style=for-the-badge
+[stars-url]: https://github.com/anthr76/tooling/stargazers
+[issues-shield]: https://img.shields.io/github/issues/anthr76/tooling.svg?style=for-the-badge
+[issues-url]: https://github.com/anthr76/tooling/issues
+[license-shield]: https://img.shields.io/github/license/anthr76/tooling.svg?style=for-the-badge
+[license-url]: https://github.com/anthr76/tooling/blob/master/LICENSE
