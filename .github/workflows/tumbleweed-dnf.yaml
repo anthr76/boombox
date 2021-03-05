@@ -2,7 +2,7 @@ name: tumbleweed-dnf-toolbox
 on:
   push:
     paths:
-      - 'images/tw/dnf/**'
+      - 'images/opensuse/tw/dnf/**'
 
 
 jobs:
