@@ -2,7 +2,6 @@
   connection: local
   become: true
 
-  roles:
-    - ansible-pull
   tasks:
+    - include: tasks/cron.yml
     - include: tasks/packages.yml

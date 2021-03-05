@@ -1,0 +1,5 @@
+- name: install cron job (ansible-pull)
+  cron:
+    name: "ansible pull provision"
+    minute: "*/10"
+    job: /bin/sh -c 'ansible-pull -U "{{ ansible_pull.url }}" -i "$(uname -n)," --diff -e playbook_dir shim/local.yml'
