@@ -1,3 +1,14 @@
+---
+
+- name: 'upgrade all packages'
+  dnf:
+    name: "*"
+    state: latest
+
+- name: 'install OBS repo'
+  dnf:
+    name: https://download.opensuse.org/repositories/home:anthr76:kubernetes/openSUSE_Tumbleweed/home:anthr76:kubernetes.repo
+
 - name: 'install packages'
   dnf:
     name:
