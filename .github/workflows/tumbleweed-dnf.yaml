@@ -1,10 +1,10 @@
-name: Build Tumleweed-dnf
+name: tumbleweed-dnf
 on: [push]
 
 jobs:
   build:
-    name: Build image
-    runs-on: ubuntu-latest
+    name: Build and push image
+    runs-on: ubuntu-20.04
 
     steps:
     - uses: actions/checkout@v2
@@ -15,14 +15,24 @@ jobs:
     - name: Setup Multi-Arch builds
       run: sudo podman run --rm --privileged multiarch/qemu-user-static --reset -p yes
 
-    - name: Buildah
+    - name: Build Image
+      id: build-image
       uses: redhat-actions/buildah-build@v2
       with:
         image: tumbleweed-toolbox
         tags: v1 ${{ github.sha }} SNAPSHOT
+        archs: amd64, arm64
         oci: true
         context: ./images/opensuse/tw/dnf
         dockerfiles:
           ./images/opensuse/tw/dnf/Dockerfile
-        build-args: |
-          some_arg=some_value
+    
+    - name: Push to GHCR
+      id: push-to-ghcr
+      uses: redhat-actions/push-to-registry@v2
+      with:
+        image: ${{ steps.build-image.outputs.image }}
+        tags:  ${{ steps.build-image.outputs.tags }}
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.CR_TOKEN }}
