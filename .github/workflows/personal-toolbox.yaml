@@ -26,7 +26,7 @@ jobs:
       with:
         image: anthr76-devops-toolbox
         tags: ${{ env.SHORT_SHA }} ${{ env.SNAPSHOT }} latest
-        archs: amd64, arm64
+        archs: arm64, amd64
         oci: true
         context: images/opensuse/tw/dnf
         dockerfiles:
