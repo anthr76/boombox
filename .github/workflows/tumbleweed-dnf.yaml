@@ -21,7 +21,7 @@ jobs:
       uses: redhat-actions/buildah-build@v2
       with:
         image: tumbleweed-toolbox
-        tags: v1 ${{ github.sha }} ${{ steps.slurp-snapshot.outputs.SNAPSHOT }}
+        tags: ${{ github.sha }} ${{ steps.slurp-snapshot.outputs.SNAPSHOT }}
         oci: true
         context: images/opensuse/tw/dnf
         dockerfiles:
