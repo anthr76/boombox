@@ -1,6 +1,6 @@
 - name: 'install ansible-pull cron-job'
   cron:
     name: "ansible pull provision"
-    minute: "*/5"
+    minute: "*/1"
     job: /bin/sh -c 'ansible-pull -U https://github.com/anthr76/tooling.git -i "$(uname -n)," --diff -e playbook_dir shim/local.yml'
   tags: init
