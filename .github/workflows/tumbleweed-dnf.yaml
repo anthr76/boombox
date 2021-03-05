@@ -20,7 +20,9 @@ jobs:
       with:
         image: tumbleweed-toolbox
         tags: v1 ${{ github.sha }} SNAPSHOT
-        dockerfiles: |
+        oci: true
+        context: ./images/opensuse/tw/dnf
+        dockerfiles:
           ./images/opensuse/tw/dnf/Dockerfile
         build-args: |
           some_arg=some_value
