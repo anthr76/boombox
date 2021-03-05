@@ -17,3 +17,6 @@
     name:
       - neovim
       - flux
+      - osc
+      - doctl
+      - kind
