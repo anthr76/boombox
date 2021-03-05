@@ -1,9 +1,13 @@
-name: tumbleweed-dnf
-on: [push]
+name: tumbleweed-dnf-toolbox
+on:
+  push:
+    paths:
+      - 'images/tw/dnf/**'
+
 
 jobs:
   build:
-    name: Build and push image
+    name: Build and push tumbleweed-dnf-toolbox image
     runs-on: ubuntu-20.04
 
     steps:
