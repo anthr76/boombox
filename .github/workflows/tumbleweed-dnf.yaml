@@ -23,7 +23,7 @@ jobs:
       uses: redhat-actions/buildah-build@v2.2.1
       with:
         image: tumbleweed-dnf-toolbox
-        tags: ${{ env.SHORT_SHA }} ${{ env.SNAPSHOT }}
+        tags: ${{ env.SHORT_SHA }} ${{ env.SNAPSHOT }} latest
         oci: true
         context: images/opensuse/tw/dnf
         dockerfiles:
