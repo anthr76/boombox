@@ -21,8 +21,7 @@ jobs:
       with:
         image: tumbleweed-toolbox
         tags: v1 ${{ github.sha }} ${ SNAPSHOT }
-        archs: amd64, aarch64
-        oci: false
+        oci: true
         context: images/opensuse/tw/dnf
         dockerfiles:
           ./images/opensuse/tw/dnf/Dockerfile
