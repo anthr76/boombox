@@ -5,6 +5,7 @@ on:
       - master
     paths:
       - 'images/opensuse/tw/dnf/**'
+      - '.github/workflows/tumbleweed-dnf.yaml'
 
 
 jobs:

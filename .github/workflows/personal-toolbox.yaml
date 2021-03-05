@@ -5,6 +5,7 @@ on:
       - master
     paths:
       - 'images/shim/**'
+      - '.github/workflows/personal-toolbox.yaml'
 
 jobs:
   build:
