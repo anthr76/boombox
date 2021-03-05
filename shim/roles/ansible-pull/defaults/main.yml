@@ -1,0 +1,6 @@
+ansible_pull:
+  #url: https://github.com/anthr76/tooling.git
+  timer: |
+    OnBootSec=5m
+    OnCalendar=daily
+    RandomizedDelaySec=30m

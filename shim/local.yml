@@ -1,0 +1,8 @@
+- hosts: localhost
+  connection: local
+  become: true
+
+  roles:
+    - ansible-pull
+  tasks:
+    - include: tasks/packages.yml
