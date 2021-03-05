@@ -1,6 +1,8 @@
 name: tumbleweed-dnf-toolbox
 on:
   push:
+    branches:
+      - master
     paths:
       - 'images/opensuse/tw/dnf/**'
 

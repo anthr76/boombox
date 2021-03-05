@@ -1,8 +1,11 @@
 name: personal-toolbox
 on:
   push:
+    branches:
+      - master
     paths:
       - 'images/shim/**'
+
 jobs:
   build:
     name: Build and push shim image
