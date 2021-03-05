@@ -10,6 +10,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Get date snapshot
+      id:  slurp-snapshot
       run: export SNAPSHOT="$(date +'%Y%m%d')"
     
     - name: Setup Multi-Arch builds
@@ -20,7 +21,7 @@ jobs:
       uses: redhat-actions/buildah-build@v2
       with:
         image: tumbleweed-toolbox
-        tags: v1 ${{ github.sha }} ${ SNAPSHOT }
+        tags: v1 ${{ github.sha }} ${ steps.slurp-snapshot.outputs.SNAPSHOT }
         oci: true
         context: images/opensuse/tw/dnf
         dockerfiles:
