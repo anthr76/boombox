@@ -8,10 +8,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
+    
     - name: Get date snapshot
-      id:  slurp-snapshot
-      run: export SNAPSHOT="$(date +'%Y%m%d')"
+      run: echo "SNAPSHOT=$(date +'%Y%m%d')" >> $GITHUB_ENV
+
+    - name: Get Git short Hash
+      run: echo "SHORT_SHA=${GITHUB_SHA::8}" >> $GITHUB_ENV
     
     - name: Setup Multi-Arch builds
       run: sudo podman run --rm --privileged multiarch/qemu-user-static --reset -p yes
@@ -21,7 +23,7 @@ jobs:
       uses: redhat-actions/buildah-build@v2
       with:
         image: tumbleweed-toolbox
-        tags: ${{ github.sha }} ${{ steps.slurp-snapshot.outputs.SNAPSHOT }}
+        tags: ${{ env.SHORT_SHA }} ${{ env.SNAPSHOT }}
         oci: true
         context: images/opensuse/tw/dnf
         dockerfiles:
