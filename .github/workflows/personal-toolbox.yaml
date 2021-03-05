@@ -28,7 +28,7 @@ jobs:
       id: build-image
       uses: redhat-actions/buildah-build@v2.2.1
       with:
-        image: anthr76-devops-toolbox
+        image: devops-toolbox
         tags: ${{ env.SHORT_SHA }} ${{ env.SNAPSHOT }} latest
         oci: true
         context: images/opensuse/tw/dnf
