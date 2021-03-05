@@ -20,7 +20,7 @@ jobs:
 
     - name: Build Image
       id: build-image
-      uses: redhat-actions/buildah-build@v2
+      uses: redhat-actions/buildah-build
       with:
         image: tumbleweed-toolbox
         tags: ${{ env.SHORT_SHA }} ${{ env.SNAPSHOT }}
@@ -31,7 +31,7 @@ jobs:
     
     - name: Push to GHCR
       id: push-to-ghcr
-      uses: redhat-actions/push-to-registry@v2
+      uses: redhat-actions/push-to-registry
       with:
         image: ${{ steps.build-image.outputs.image }}
         tags:  ${{ steps.build-image.outputs.tags }}
