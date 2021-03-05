@@ -23,7 +23,7 @@ jobs:
         tags: v1 ${{ github.sha }} SNAPSHOT
         archs: amd64, arm64
         oci: true
-        context: ./images/opensuse/tw/dnf
+        context: images/opensuse/tw/dnf
         dockerfiles:
           ./images/opensuse/tw/dnf/Dockerfile
     
@@ -36,3 +36,6 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.CR_TOKEN }}
+
+    - name: Use the image
+      run: echo "New image has been pushed to ${{ steps.push-to-ghcr.outputs.registry-paths }}"
