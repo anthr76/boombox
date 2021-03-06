@@ -3,5 +3,4 @@
   become: true
 
   tasks:
-    - include: tasks/cron.yml
     - include: tasks/packages.yml
