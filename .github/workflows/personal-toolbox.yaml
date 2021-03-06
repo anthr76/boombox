@@ -31,6 +31,7 @@ jobs:
         image: devops-toolbox
         tags: ${{ env.SHORT_SHA }} ${{ env.SNAPSHOT }} latest
         oci: true
+        archs: amd64,arm64
         context: images/shim
         dockerfiles:
           ./images/shim/Dockerfile
