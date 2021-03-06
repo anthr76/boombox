@@ -32,7 +32,7 @@ jobs:
         image: tumbleweed-dnf-toolbox
         tags: ${{ env.SHORT_SHA }} ${{ env.SNAPSHOT }} latest
         oci: true
-        archs: amd64,arm64
+        archs: amd64
         context: images/opensuse/tw/dnf
         dockerfiles:
           ./images/opensuse/tw/dnf/Dockerfile
