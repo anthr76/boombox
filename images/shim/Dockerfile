@@ -12,6 +12,6 @@ RUN dnf install curl ansible zsh neovim -y
 
 RUN dnf clean all
 
-COPY 00-shim.sh /etc/profile.d/test.sh
+COPY 00-shim.sh /etc/profile.d/00-shim.sh
 
 CMD /bin/sh
