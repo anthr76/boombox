@@ -12,8 +12,6 @@ RUN dnf install curl ansible zsh neovim -y
 
 RUN dnf clean all
 
-RUN ansible-pull -U https://github.com/anthr76/tooling.git -i "$(uname -n)," -e playbook_dir shim/local.yml -t init
-
-RUN curl https://artii.herokuapp.com/make?text=DevOps+Toolbox
+COPY 00-shim.sh /etc/profile.d/test.sh
 
 CMD /bin/sh
