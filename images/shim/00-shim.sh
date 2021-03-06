@@ -6,6 +6,8 @@ echo ""
 echo "Starting ansible-pull provision..."
 echo "manually run with provision"
 
+sleep 3
+
 nohup ansible-pull -U https://github.com/anthr76/tooling.git -i "$(uname -n)," --diff -e playbook_dir shim/local.yml &>/tmp/last-ansible-pull &
 
 alias provision="ansible-pull -U https://github.com/anthr76/tooling.git -i "$(uname -n)," -e playbook_dir shim/local.yml"
