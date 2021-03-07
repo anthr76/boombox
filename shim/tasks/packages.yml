@@ -21,3 +21,5 @@
       - doctl
       - kind
       - k9s
+      - kubernetes-client
+      - kuberlr
