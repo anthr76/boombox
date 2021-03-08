@@ -25,3 +25,4 @@
       - kuberlr
       - helm
       - go
+      - python38-pre-commit
