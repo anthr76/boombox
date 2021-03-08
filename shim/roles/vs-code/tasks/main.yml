@@ -3,12 +3,11 @@
 - name: 'provision flatpak vs-code to use with toolbox container'
   ansible.builtin.copy:
     src: files/{{ toolbox_container_name }}.json
-    dest: '{{ home_dir }}/.var/app/com.visualstudio.com/config/Code/User/globalStorage/ms-vscode-remote.remote-containers/nameConfigs/{{ toolbox_container_name }}.json'
+    dest: '{{ ansible_env.HOME }}/.var/app/com.visualstudio.com/config/Code/User/globalStorage/ms-vscode-remote.remote-containers/nameConfigs/{{ toolbox_container_name }}.json'
   become: false
 
 - name: 'avoid breaking host gitconfig'
   ansible.builtin.copy:
     src: files/settings.json
     dest: /root/.vscode-server/data/Machine/settings.json
-  become: true
   

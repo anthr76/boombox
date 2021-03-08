@@ -1,4 +1,3 @@
 ---
 
-home_dir: '{{ ansible_env.HOME }}'
 toolbox_container_name: devops-toolbox
