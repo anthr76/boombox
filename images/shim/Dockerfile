@@ -15,6 +15,5 @@ RUN dnf install curl ansible zsh neovim -y
 RUN dnf clean all
 
 COPY 00-shim.sh /etc/profile.d/00-shim.sh
-COPY podman-wrapper.sh /usr/local/bin/podman-wrapper.sh
 
 CMD /bin/sh
