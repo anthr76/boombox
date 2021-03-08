@@ -1,0 +1,32 @@
+{
+    "remoteUser": "${localEnv:USER}",
+    "settings": {
+      "terminal.integrated.shell.linux": "/usr/sbin/capsh",
+      "terminal.integrated.shellArgs.linux": [
+        "--caps=",
+        "--",
+        "-c",
+        "exec \"$@\"",
+        "/bin/sh",
+        "${localEnv:SHELL}",
+        "-l"
+      ]
+    },
+    "remoteEnv": {
+      "COLORTERM": "${localEnv:COLORTERM}",
+      "DBUS_SESSION_BUS_ADDRESS": "${localEnv:DBUS_SESSION_BUS_ADDRESS}",
+      "DESKTOP_SESSION": "${localEnv:DESKTOP_SESSION}",
+      "DISPLAY": "${localEnv:DISPLAY}",
+      "LANG": "${localEnv:LANG}",
+      "SHELL": "${localEnv:SHELL}",
+      "SSH_AUTH_SOCK": "${localEnv:SSH_AUTH_SOCK}",
+      "TERM": "${localEnv:TERM}",
+      "VTE_VERSION": "${localEnv:VTE_VERSION}",
+      "XDG_CURRENT_DESKTOP": "${localEnv:XDG_CURRENT_DESKTOP}",
+      "XDG_DATA_DIRS": "${localEnv:XDG_DATA_DIRS}",
+      "XDG_MENU_PREFIX": "${localEnv:XDG_MENU_PREFIX}",
+      "XDG_RUNTIME_DIR": "${localEnv:XDG_RUNTIME_DIR}",
+      "XDG_SESSION_DESKTOP": "${localEnv:XDG_SESSION_DESKTOP}",
+      "XDG_SESSION_TYPE": "${localEnv:XDG_SESSION_TYPE}"
+    }
+  }
