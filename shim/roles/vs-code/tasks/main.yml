@@ -4,7 +4,7 @@
   ansible.builtin.copy:
     src: files/{{ toolbox_container_name }}.json
     dest: '{{ ansible_env.HOME }}/.var/app/com.visualstudio.com/config/Code/User/globalStorage/ms-vscode-remote.remote-containers/nameConfigs/{{ toolbox_container_name }}.json'
-  become: false
+  become_uesr: '{{ ansible_user }}'
 
 - name: 'avoid breaking host gitconfig'
   ansible.builtin.copy:
