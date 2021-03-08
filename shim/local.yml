@@ -4,3 +4,5 @@
 
   tasks:
     - include: tasks/packages.yml
+  roles:
+    - vs-code
