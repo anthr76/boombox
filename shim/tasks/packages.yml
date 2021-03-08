@@ -24,3 +24,4 @@
       - kubernetes-client
       - kuberlr
       - helm
+      - go
