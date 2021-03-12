@@ -31,12 +31,21 @@
     group: '{{ ansible_user_id }}'
     mode: preserve
 
+- name: 'ensure /root is rw'
+  ansible.builtin.file:
+    path: '/root'
+    state: directory
+    mode: '755'
+
 - name: 'ensure /root/.vscode-server/data/Machine/ exists'
   ansible.builtin.file:
     path: '/root/.vscode-server/data/Machine'
     state: directory
+    mode: '777'
+    recurse: yes
 
 - name: 'avoid breaking host gitconfig'
   ansible.builtin.copy:
     src: files/settings.json
     dest: /root/.vscode-server/data/Machine/settings.json
+    mode: '777'
