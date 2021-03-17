@@ -5,12 +5,19 @@
     name: "*"
     state: latest
 
-- name: 'install OBS repo'
+- name: 'install OBS k8s repo'
   command:
     cmd: dnf config-manager --add-repo https://download.opensuse.org/repositories/home:anthr76:kubernetes/openSUSE_Tumbleweed/home:anthr76:kubernetes.repo
     warn: false
   args:
     creates: /etc/dnf/repos.d/home:anthr76:kubernetes.repo
+
+- name: 'install OBS repo'
+  command:
+    cmd: dnf config-manager --add-repo https://download.opensuse.org/repositories/home:anthr76/openSUSE_Tumbleweed/home:anthr76.repo
+    warn: false
+  args:
+    creates: /etc/dnf/repos.d/home:anthr76.repo
 
 - name: 'install packages'
   dnf:
@@ -27,3 +34,5 @@
       - go
       - python38-pre-commit
       - gh
+      - flatpak-xdg-utils
+

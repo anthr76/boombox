@@ -16,4 +16,19 @@ RUN dnf clean all
 
 COPY 00-shim.sh /etc/profile.d/00-shim.sh
 
+RUN mkdir /usr/libexec/toolbox
+COPY host-runner /usr/libexec/toolbox/host-runner
+
+RUN ls /usr/libexec/toolbox \
+&& \
+chmod +x /usr/libexec/toolbox/host-runner \
+&& \
+ln -s /usr/libexec/toolbox/host-runner /usr/libexec/flatpak \
+&& \
+ln -s /usr/libexec/toolbox/host-runner /usr/libexec/virsh \
+&& \
+ln -s /usr/libexec/toolbox/host-runner /usr/libexec/podman \
+&& \
+ln -s /usr/libexec/toolbox/host-runner /usr/libexec/virt-install
+
 CMD /bin/sh
