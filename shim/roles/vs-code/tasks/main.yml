@@ -36,6 +36,14 @@
     path: '/root'
     state: directory
     mode: '755'
+    recurse: yes
+
+- name: 'ensure /root/.vscode-server is rw'
+  ansible.builtin.file:
+    path: '/root/.vscode-server'
+    state: directory
+    mode: '777'
+    recurse: yes
 
 - name: 'ensure /root/.vscode-server/data/Machine/ exists'
   ansible.builtin.file:
@@ -49,3 +57,4 @@
     src: files/settings.json
     dest: /root/.vscode-server/data/Machine/settings.json
     mode: '777'
+    recurse: yes

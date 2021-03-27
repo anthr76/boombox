@@ -18,16 +18,19 @@ COPY 00-shim.sh /etc/profile.d/00-shim.sh
 
 RUN mkdir /usr/libexec/toolbox
 COPY host-runner /usr/libexec/toolbox/host-runner
+COPY podman-wrapper /usr/libexec/toolbox/podman-wrapper
 
 RUN ls /usr/libexec/toolbox \
 && \
 chmod +x /usr/libexec/toolbox/host-runner \
 && \
+chmod +x /usr/libexec/toolbox/podman-wrapper \
+&& \
 ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/flatpak \
 && \
 ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/virsh \
 && \
-ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/podman \
+ln -s /usr/libexec/toolbox/podman-wrapper /usr/libexec/toolbox/podman \
 && \
 ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/virt-install
 

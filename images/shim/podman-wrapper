@@ -1,0 +1,10 @@
+#!/bin/bash                                                                                                                                                                                                        
+
+if [ $1 == "exec" ] ; then
+    shift
+    exec flatpak-spawn --host sh -c \
+         'exec podman exec -e DISPLAY="$DISPLAY" -e SHELL="$SHELL" -e SSH_AUTH_SOCK="$SSH_AUTH_SOCK" "$@"' \
+         - "$@"
+else
+    exec flatpak-spawn --host podman "$@"
+fi

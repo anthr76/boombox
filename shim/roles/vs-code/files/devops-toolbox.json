@@ -8,7 +8,7 @@
         "-c",
         "exec \"$@\"",
         "/bin/sh",
-        "${localEnv:SHELL}",
+        "${localEnv:HOST_SHELL}",
         "-l"
       ]
     },
@@ -16,10 +16,10 @@
       "COLORTERM": "${localEnv:COLORTERM}",
       "DBUS_SESSION_BUS_ADDRESS": "${localEnv:DBUS_SESSION_BUS_ADDRESS}",
       "DESKTOP_SESSION": "${localEnv:DESKTOP_SESSION}",
-      "DISPLAY": "${localEnv:DISPLAY}",
+      "DISPLAY": "${localEnv:HOST_DISPLAY}",
       "LANG": "${localEnv:LANG}",
-      "SHELL": "${localEnv:SHELL}",
-      "SSH_AUTH_SOCK": "${localEnv:SSH_AUTH_SOCK}",
+      "SHELL": "${localEnv:HOST_SHELL}",
+      "SSH_AUTH_SOCK": "${localEnv:HOST_SSH_AUTH_SOCK}",
       "TERM": "${localEnv:TERM}",
       "VTE_VERSION": "${localEnv:VTE_VERSION}",
       "XDG_CURRENT_DESKTOP": "${localEnv:XDG_CURRENT_DESKTOP}",
