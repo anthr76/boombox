@@ -1,0 +1,3 @@
+[submodule "images/shim/toolbox-vscode"]
+	path = images/shim/toolbox-vscode
+	url = https://github.com/owtaylor/toolbox-vscode.git
