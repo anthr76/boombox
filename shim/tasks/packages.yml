@@ -36,3 +36,4 @@
       - gh
       - terraform
       - flatpak-xdg-utils
+      - rpmlint
