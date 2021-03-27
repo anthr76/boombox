@@ -57,4 +57,3 @@
     src: files/settings.json
     dest: /root/.vscode-server/data/Machine/settings.json
     mode: '777'
-    recurse: yes
