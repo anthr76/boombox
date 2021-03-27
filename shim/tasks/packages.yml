@@ -27,3 +27,4 @@
       - go
       - python38-pre-commit
       - gh
+      - terraform
