@@ -23,12 +23,12 @@ RUN ls /usr/libexec/toolbox \
 && \
 chmod +x /usr/libexec/toolbox/host-runner \
 && \
-ln -s /usr/libexec/toolbox/host-runner /usr/libexec/flatpak \
+ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/flatpak \
 && \
-ln -s /usr/libexec/toolbox/host-runner /usr/libexec/virsh \
+ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/virsh \
 && \
-ln -s /usr/libexec/toolbox/host-runner /usr/libexec/podman \
+ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/podman \
 && \
-ln -s /usr/libexec/toolbox/host-runner /usr/libexec/virt-install
+ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/virt-install
 
 CMD /bin/sh
