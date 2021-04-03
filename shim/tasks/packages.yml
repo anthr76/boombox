@@ -37,3 +37,4 @@
       - terraform
       - flatpak-xdg-utils
       - rpmlint
+      - dirmngr
