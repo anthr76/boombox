@@ -37,4 +37,10 @@ ln -s /usr/libexec/toolbox/podman-host.sh /usr/libexec/toolbox/podman \
 && \
 ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/virt-install
 
+RUN rm -rf /root
+
+RUN mkdir /root
+
+RUN chmod -R 777 /root 
+
 CMD /bin/sh
