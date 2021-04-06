@@ -40,3 +40,4 @@
       - dirmngr
       - libopenssl1_0_0
       - gnome-keyring
+      - python3-yamllint
