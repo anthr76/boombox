@@ -41,3 +41,19 @@
       - libopenssl1_0_0
       - gnome-keyring
       - python3-yamllint
+      - npm
+
+- name: 'install npm packages'
+  community.general.npm:
+    name: "{{ item }}"
+    global: yes
+    state: latest
+  loop:
+    - 'prettier'
+    - '@bitwarden/cli'
+
+- name: 'install pip stuff'
+  pip:
+    name: "{{ item }}"
+  loop:
+  - 'ansible-lint'
