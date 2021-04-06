@@ -42,11 +42,12 @@
       - gnome-keyring
       - python3-yamllint
       - npm
+      - python3-pip
 
 - name: 'install npm packages'
   community.general.npm:
     name: "{{ item }}"
-    global: yes
+    global: true
     state: latest
   loop:
     - 'prettier'
@@ -56,4 +57,4 @@
   pip:
     name: "{{ item }}"
   loop:
-  - 'ansible-lint'
+    - 'ansible-lint'
