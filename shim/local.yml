@@ -1,7 +1,8 @@
+---
 - hosts: localhost
   connection: local
   become: true
 
   roles:
-    - vs-code
+    - vs_code
     - packages

@@ -1,6 +1,6 @@
 ---
 
-- name: 'upgrade all packages'
+- name: 'upgrade all packages' # noqa package-latest
   dnf:
     name: "*"
     state: latest
@@ -19,7 +19,7 @@
   args:
     creates: /etc/dnf/repos.d/home:anthr76.repo
 
-- name: 'install packages'
+- name: 'install packages' # noqa package-latest
   dnf:
     name:
       - neovim
@@ -43,6 +43,7 @@
       - python3-yamllint
       - npm
       - python3-pip
+    state: latest
 
 - name: 'install npm packages'
   community.general.npm:
