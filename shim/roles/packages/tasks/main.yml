@@ -4,6 +4,8 @@
   dnf:
     name: "*"
     state: latest
+    update_cache: true
+    skip_broken: true
 
 - name: 'install OBS k8s repo'
   command:
@@ -43,7 +45,10 @@
       - python3-yamllint
       - npm
       - python3-pip
+      - task
     state: latest
+    skip_broken: true
+    # allowerasing: true ansible 2.10
 
 - name: 'install npm packages'
   community.general.npm:

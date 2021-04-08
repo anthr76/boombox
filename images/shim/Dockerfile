@@ -8,7 +8,7 @@ LABEL com.github.containers.toolbox="true" \
       summary="You should not use this container and instead use your own customizations on a fork" \
       maintainer="Anthony Rabbito <hello@anthonyrabbito.com>"
 
-RUN dnf update -y --refresh
+RUN dnf update -y --refresh --best --allowerasing
 
 RUN dnf install curl ansible zsh neovim -y
 
