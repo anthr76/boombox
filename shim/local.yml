@@ -2,11 +2,6 @@
   connection: local
   become: true
 
-  tasks:
-    - name: 'glue ansible-galaxy'
-      local_action: command ansible-galaxy install -r requirements.yml
-      become: false
-
   roles:
     - vs-code
     - packages
