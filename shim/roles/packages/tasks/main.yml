@@ -46,6 +46,7 @@
       - npm
       - python3-pip
       - task
+      - ShellCheck
     state: latest
     skip_broken: true
     # allowerasing: true ansible 2.10
