@@ -26,7 +26,7 @@
     cmd: dnf config-manager --add-repo https://download.opensuse.org/repositories/GNOME:Next/openSUSE_Factory/GNOME:Next.repo
     warn: false
   args:
-    creates: /etc/dnf/repos.d/home:anthr76.repo
+    creates: /etc/dnf/repos.d/GNOME:Next.repo
 
 - name: 'install packages' # noqa package-latest
   dnf:
