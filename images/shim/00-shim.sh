@@ -10,6 +10,6 @@ export PATH="/usr/libexec/toolbox:$PATH"
 
 sleep 1
 nohup ansible-galaxy collection install community.general </dev/null &>/dev/null &
-nohup ansible-pull -U https://github.com/anthr76/tooling.git -i "$(uname -n)," --diff -e playbook_dir shim/local.yml &>/tmp/last-ansible-pull &
+nohup ansible-pull -U https://gitlab.com/anthr76/tooling.git -i "$(uname -n)," --diff -e playbook_dir shim/local.yml &>/tmp/last-ansible-pull &
 
 alias provision="ansible-pull -U https://gitlab.com/anthr76/tooling.git -i "$(uname -n)," -e playbook_dir shim/local.yml"
