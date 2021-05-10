@@ -1,6 +1,6 @@
 FROM registry.opensuse.org/opensuse/tumbleweed-dnf
 
-ENV NAME=tumbleweed-dnf-toolbox
+ENV NAME=tumbleweed-dnf-toolbox VERSION=${SNAPSHOT}
 LABEL com.github.containers.toolbox="true" \
       com.github.debarshiray.toolbox="true" \
       name="$NAME" \
