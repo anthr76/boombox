@@ -17,11 +17,6 @@ jobs:
       with:
         submodules: 'true'
 
-    - run: |
-       sudo apt-get install fuse-overlayfs
-       mkdir -vp ~/.config/containers
-       printf "[storage.options]\nmount_program=\"/usr/bin/fuse-overlayfs\"" > ~/.config/containers/storage.conf
-
     - name: Get date snapshot
       run: echo "SNAPSHOT=$(date +'%Y%m%d')" >> $GITHUB_ENV
 
@@ -33,13 +28,15 @@ jobs:
 
     - name: Build Image
       id: build-image
-      uses: redhat-actions/buildah-build@v2.3
+      uses: redhat-actions/buildah-build@v2.5
       with:
         image: devops-toolbox
         tags: ${{ env.SHORT_SHA }} ${{ env.SNAPSHOT }} latest
         oci: true
         archs: amd64,arm64
+        layers: true
         context: images/shim
+        build-args: VERSION=env.SNAPSHOT
         dockerfiles:
           ./images/shim/Dockerfile
     
