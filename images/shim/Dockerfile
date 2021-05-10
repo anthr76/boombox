@@ -1,6 +1,6 @@
 FROM ghcr.io/anthr76/tumbleweed-dnf-toolbox
 
-ENV NAME=anthr76-devops-toolbox
+ENV NAME=anthr76-devops-toolbox VERSION=tumbleweed-dnf
 LABEL com.github.containers.toolbox="true" \
       com.github.debarshiray.toolbox="true" \
       name="$NAME" \
