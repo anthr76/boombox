@@ -18,8 +18,7 @@ COPY 00-shim.sh /etc/profile.d/00-shim.sh
 
 RUN mkdir /usr/libexec/toolbox
 COPY host-runner /usr/libexec/toolbox/host-runner
-COPY toolbox-vscode/podman-host.sh /usr/libexec/toolbox/podman-host.sh
-COPY toolbox-vscode/code.sh /usr/libexec/toolbox/code
+COPY podman-host.sh /usr/libexec/toolbox/podman-host.sh
 
 RUN ls /usr/libexec/toolbox \
 && \
