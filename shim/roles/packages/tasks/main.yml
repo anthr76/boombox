@@ -54,6 +54,7 @@
       - python3-pip
       - task
       - ShellCheck
+      - tmux
     state: latest
     skip_broken: true
     # allowerasing: true ansible 2.10
