@@ -41,3 +41,5 @@ RUN mkdir /root
 RUN chmod -R 777 /root 
 
 CMD /bin/sh
+
+LABEL org.opencontainers.image.source = "https://github.com/anthr76/tooling"

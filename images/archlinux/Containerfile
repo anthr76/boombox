@@ -19,3 +19,5 @@ RUN touch /etc/machine-id
 RUN pacman -Scc --noconfirm
 
 CMD /bin/sh
+
+LABEL org.opencontainers.image.source = "https://github.com/anthr76/tooling"

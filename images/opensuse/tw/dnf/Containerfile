@@ -23,3 +23,5 @@ RUN echo "%wheel ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/toolbox
 RUN dnf clean all
 
 CMD /bin/sh
+
+LABEL org.opencontainers.image.source = "https://github.com/anthr76/tooling"
