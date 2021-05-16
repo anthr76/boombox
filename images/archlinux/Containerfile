@@ -8,7 +8,7 @@ LABEL com.github.containers.toolbox="true" \
       usage="This image is meant to be used with the toolbox command" \
       summary="Base image for creating Arch Linux toolbox containers" \
       maintainer="Anthony Rabbito <hello@anthonyrabbito.com>" \
-      org.opencontainers.image.source = "https://github.com/anthr76/tooling"
+      org.opencontainers.image.source="https://github.com/anthr76/tooling"
 
 COPY extra-packages /
 RUN pacman -Syu --needed --noconfirm - < extra-packages

@@ -8,7 +8,7 @@ LABEL com.github.containers.toolbox="true" \
       usage="This image is meant to be used with the toolbox command" \
       summary="You should not use this container and instead use your own customizations on a fork" \
       maintainer="Anthony Rabbito <hello@anthonyrabbito.com>" \
-      org.opencontainers.image.source = "https://github.com/anthr76/tooling"
+      org.opencontainers.image.source="https://github.com/anthr76/tooling"
 
 RUN dnf update -y --refresh --best --allowerasing
 
