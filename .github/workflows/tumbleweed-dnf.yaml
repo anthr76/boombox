@@ -34,7 +34,7 @@ jobs:
       uses: redhat-actions/buildah-build@v2.5
       with:
         image: tumbleweed-dnf-toolbox
-        tags: ${{ env.SHORT_SHA }} ${{ env.SNAPSHOT }} latest
+        tags: ${{ env.SHORT_SHA }} ${{ env.SNAPSHOT }} ${{ env.UPSTREAM_TAG }} latest
         oci: true
         archs: amd64
         layers: true

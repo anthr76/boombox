@@ -6,7 +6,8 @@ LABEL com.github.containers.toolbox="true" \
       name="$NAME" \
       usage="This image is meant to be used with the toolbox command" \
       summary="Base image for creating OpenSUSE tumbleweed dnf toolbox containers" \
-      maintainer="Anthony Rabbito <hello@anthonyrabbito.com>"
+      maintainer="Anthony Rabbito <hello@anthonyrabbito.com>" \
+      org.opencontainers.image.source = "https://github.com/anthr76/tooling"
 
 RUN sed -i '/tsflags=nodocs/d' /etc/dnf/dnf.conf
 
@@ -23,5 +24,3 @@ RUN echo "%wheel ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/toolbox
 RUN dnf clean all
 
 CMD /bin/sh
-
-LABEL org.opencontainers.image.source = "https://github.com/anthr76/tooling"

@@ -22,6 +22,9 @@ jobs:
 
     - name: Get Git short Hash
       run: echo "SHORT_SHA=${GITHUB_SHA::8}" >> $GITHUB_ENV
+
+    - name: Get Upstream Tag
+      run: echo "UPSTREAM_TAG=${grep "FROM" < ./images/opensuse/tw/dnf/Containerfile | sed -e "s#FROM registry.opensuse.org/opensuse/tumbleweed-dnf\:##g" -e "s#-.*##g"}"
     
     - name: Setup Multi-Arch builds
       run: sudo podman run --rm --privileged multiarch/qemu-user-static --reset -p yes
@@ -30,15 +33,14 @@ jobs:
       id: build-image
       uses: redhat-actions/buildah-build@v2.5
       with:
-        image: devops-toolbox
-        tags: ${{ env.SHORT_SHA }} ${{ env.SNAPSHOT }} latest
+        image: devops-toolbox-tw
+        tags: ${{ env.SHORT_SHA }} ${{ env.SNAPSHOT }} ${{ env.UPSTREAM_TAG }} latest
         oci: true
         archs: amd64,arm64
         layers: true
         context: images/shim
-        build-args: VERSION=env.SNAPSHOT
         dockerfiles:
-          ./images/shim/Dockerfile
+          ./images/shim/Containerfile.tw
     
     - name: Push to GHCR
       id: push-to-ghcr

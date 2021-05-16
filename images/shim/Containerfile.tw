@@ -1,12 +1,14 @@
-FROM ghcr.io/anthr76/tumbleweed-dnf-toolbox
+FROM ghcr.io/anthr76/tumbleweed-dnf-toolbox:20210514.1.278
 
 ENV NAME=anthr76-devops-toolbox VERSION=tumbleweed-dnf
 LABEL com.github.containers.toolbox="true" \
       com.github.debarshiray.toolbox="true" \
       name="$NAME" \
+      version="$VERSION" \
       usage="This image is meant to be used with the toolbox command" \
       summary="You should not use this container and instead use your own customizations on a fork" \
-      maintainer="Anthony Rabbito <hello@anthonyrabbito.com>"
+      maintainer="Anthony Rabbito <hello@anthonyrabbito.com>" \
+      org.opencontainers.image.source = "https://github.com/anthr76/tooling"
 
 RUN dnf update -y --refresh --best --allowerasing
 
@@ -41,5 +43,3 @@ RUN mkdir /root
 RUN chmod -R 777 /root 
 
 CMD /bin/sh
-
-LABEL org.opencontainers.image.source = "https://github.com/anthr76/tooling"
