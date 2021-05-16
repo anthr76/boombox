@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: Build and push tumbleweed-dnf-toolbox image
+    name: Build and push archlinux-base image
     runs-on: ubuntu-20.04
 
     steps:
