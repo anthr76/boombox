@@ -26,8 +26,6 @@ chmod +x /usr/libexec/toolbox/host-runner \
 && \
 chmod +x /usr/libexec/toolbox/podman-host.sh \
 && \
-chmod +x /usr/libexec/toolbox/code \
-&& \
 ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/flatpak \
 && \
 ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/virsh \
