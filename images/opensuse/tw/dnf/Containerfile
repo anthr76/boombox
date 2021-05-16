@@ -1,4 +1,4 @@
-FROM registry.opensuse.org/opensuse/tumbleweed-dnf
+FROM registry.opensuse.org/opensuse/tumbleweed-dnf:20210514.1.278
 
 ENV NAME=tumbleweed-dnf-toolbox VERSION=tumbleweed-dnf
 LABEL com.github.containers.toolbox="true" \
