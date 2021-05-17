@@ -1,0 +1,65 @@
+FROM ghcr.io/anthr76/archlinux-base-toolbox:20210509.0.21942
+
+ENV NAME=archlinux-toolbox VERSION=base
+LABEL com.github.containers.toolbox="true" \
+      com.github.debarshiray.toolbox="true" \
+      name="$NAME" \
+      version="$VERSION" \
+      usage="This image is meant to be used with the toolbox command" \
+      summary="You should not use this container and instead use your own customizations on a fork" \
+      maintainer="Anthony Rabbito <hello@anthonyrabbito.com>"
+
+RUN pacman --noconfirm -Syu
+
+RUN pacman --noconfirm -S curl zsh neovim
+
+RUN mkdir -p /usr/libexec/toolbox
+COPY host-runner /usr/libexec/toolbox/host-runner
+COPY podman-host.sh /usr/libexec/toolbox/podman-host.sh
+COPY pkgs.arch /opt/pkgs
+
+RUN ls /usr/libexec/toolbox \
+&& \
+chmod +x /usr/libexec/toolbox/host-runner \
+&& \
+chmod 444 /opt/pkgs \
+&& \
+chmod +x /usr/libexec/toolbox/podman-host.sh \
+&& \
+ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/flatpak \
+&& \
+ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/virsh \
+&& \
+ln -s /usr/libexec/toolbox/podman-host.sh /usr/libexec/toolbox/podman \
+&& \
+ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/virt-install
+
+# Install yay and cleanup
+RUN pacman -S --noconfirm --needed base base-devel git asp && \
+    useradd -g wheel -d /home/makepkg makepkg && \
+    mkdir -p /home/makepkg/{.config/pacman,.gnupg,out} && \
+    echo 'MAKEFLAGS="-j$(nproc)"' >> /home/makepkg/.config/pacman/makepkg.conf && \
+    echo 'PKGDEST="/home/makepkg/out"' >> /home/makepkg/.config/pacman/makepkg.conf && \
+    echo 'keyserver-options auto-key-retrieve' > /home/makepkg/.gnupg/gpg.conf && \
+    chown -R makepkg:wheel /home/makepkg && \
+    sudo -u makepkg git clone https://aur.archlinux.org/yay.git /home/makepkg/yay && \
+    cd /home/makepkg/yay && \
+    sudo -u makepkg makepkg --noconfirm -si && \
+    sudo -u makepkg makepkg --printsrcinfo > .SRCINFO && \
+    cat .SRCINFO && \
+    mv .SRCINFO /opt/yay.SRCINFO && \
+    cd / && \
+    rm -rf /home/makepkg && \
+    userdel makepkg
+
+RUN rm -rf /root
+
+RUN mkdir /root
+
+RUN chmod -R 777 /root 
+
+RUN pacman -Scc --noconfirm && pacman --noconfirm -R $(pacman -Qtdq)
+
+CMD /bin/sh
+
+LABEL org.opencontainers.image.source https://github.com/anthr76/tooling
