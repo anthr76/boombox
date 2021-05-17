@@ -34,7 +34,7 @@ jobs:
       uses: redhat-actions/buildah-build@v2.5
       with:
         image: devops-toolbox-tw
-        tags: ${{ env.SHORT_SHA }} ${{ env.SNAPSHOT }} ${{ env.UPSTREAM_TAG }} latest
+        tags: ${{ env.SHORT_SHA }} ${{ env.SNAPSHOT }} latest ${{ env.UPSTREAM_TAG }} 
         oci: true
         archs: amd64,arm64
         layers: true
