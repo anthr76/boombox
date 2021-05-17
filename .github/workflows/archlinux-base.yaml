@@ -22,6 +22,9 @@ jobs:
     - name: Get Git short Hash
       run: echo "SHORT_SHA=${GITHUB_SHA::8}" >> $GITHUB_ENV
 
+    - name: Get Git short Hash
+      run: echo ls -la
+
     - name: Get Upstream Tag
       run: echo "UPSTREAM_TAG=${grep 'FROM' < ./images/archlinux/Containerfile | sed -e 's#FROM docker.io/library/archlinux\:##g' -e 's#base.##g'}" >> $GITHUB_ENV
     
