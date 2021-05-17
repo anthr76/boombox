@@ -1,11 +1,11 @@
-name: personal-toolbox
+name: personal-toolbox-arch
 on:
   push:
     branches:
       - master
     paths:
       - 'images/shim/**'
-      - '.github/workflows/personal-toolbox.yaml'
+      - '.github/workflows/personal-toolbox-arch.yaml'
 
 jobs:
   build:
