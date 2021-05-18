@@ -50,8 +50,9 @@ RUN pacman -S --noconfirm --needed base base-devel git asp && \
     cat .SRCINFO && \
     mv .SRCINFO /opt/yay.SRCINFO && \
     cd / && \
-    rm -rf /home/makepkg && \
-    userdel makepkg
+    rm -rf /home/makepkg/* && \
+    userdel makepkg && \
+    rm -rf /home/makepkg
 
 RUN rm -rf /root
 
