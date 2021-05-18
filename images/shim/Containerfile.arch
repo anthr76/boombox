@@ -17,6 +17,7 @@ RUN mkdir -p /usr/libexec/toolbox
 COPY host-runner /usr/libexec/toolbox/host-runner
 COPY podman-host.sh /usr/libexec/toolbox/podman-host.sh
 COPY pkgs.arch /opt/pkgs
+COPY 01-shim.sh /etc/profile.d/01-shim.sh
 
 RUN ls /usr/libexec/toolbox \
 && \
