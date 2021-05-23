@@ -1,3 +1,4 @@
+zsh-completions
 neovim
 flux-bin
 osc
@@ -10,7 +11,7 @@ go
 python-pre-commit
 github-cli
 terraform
-flatpak-xdg-utils-git
+flatpak-xdg-utils
 rpmlint
 gnome-keyring
 yamllint
