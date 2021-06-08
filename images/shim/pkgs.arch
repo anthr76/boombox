@@ -22,3 +22,4 @@ sops
 kubecolor
 rsync
 chezmoi
+kubie-bin
