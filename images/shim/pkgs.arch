@@ -18,3 +18,7 @@ yamllint
 taskfile-git
 shellcheck
 tmux
+sops
+kubecolor
+rsync
+chezmoi

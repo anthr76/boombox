@@ -35,7 +35,7 @@ jobs:
       with:
         image: devops-toolbox-arch
         tags: ${{ env.SHORT_SHA }} ${{ env.SNAPSHOT }} latest ${{ env.UPSTREAM_TAG }} 
-        oci: true
+        oci: false
         archs: amd64,arm64
         layers: true
         context: images/shim

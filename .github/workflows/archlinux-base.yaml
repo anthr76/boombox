@@ -34,7 +34,7 @@ jobs:
       with:
         image: archlinux-base-toolbox
         tags: ${{ env.SHORT_SHA }} ${{ env.SNAPSHOT }} latest ${{ env.UPSTREAM_TAG }}
-        oci: true
+        oci: false
         archs: amd64
         layers: true
         context: images/archlinux
