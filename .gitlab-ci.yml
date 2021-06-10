@@ -6,9 +6,13 @@ release:
   image: node:12-buster-slim
   stage: 🚀 deploy
   before_script:
+    - 'which ssh-agent || ( apt-get install -qq openssh-client )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$GL_DEPLOY_KEY")
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - apt-get update && apt-get install -y --no-install-recommends git-core ca-certificates
     - npm install -g semantic-release @semantic-release/gitlab
-    - export GL_TOKEN=${CI_JOB_TOKEN}
   script:
     - semantic-release
   only:
