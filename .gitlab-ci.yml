@@ -8,6 +8,7 @@ release:
   before_script:
     - apt-get update && apt-get install -y --no-install-recommends git-core ca-certificates
     - npm install -g semantic-release @semantic-release/gitlab
+    - export GL_TOKEN=${CI_JOB_TOKEN}
   script:
     - semantic-release
   only:
