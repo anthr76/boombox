@@ -23,3 +23,10 @@ kubecolor
 rsync
 chezmoi
 kubie-bin
+ansible-lint
+hadolint
+prettier
+flux-bin
+kustomize
+p7zip
+croc
