@@ -3,7 +3,7 @@ stages:
   - 🚀 deploy
 
 release:
-  image: node:12-buster-slim
+  image: node:16-buster-slim
   stage: 🚀 deploy
   before_script:
     - 'which git || ( apt update && apt-get install -qq git )'
