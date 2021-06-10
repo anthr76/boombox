@@ -6,7 +6,7 @@ release:
   image: node:12-buster-slim
   stage: 🚀 deploy
   before_script:
-    - 'which ssh-agent || ( apt-get install -qq ssh )'
+    - 'which ssh-agent || ( apt update && apt-get install -qq ssh )'
     - eval $(ssh-agent -s)
     - ssh-add <(echo "$GL_DEPLOY_KEY")
     - mkdir -p ~/.ssh
