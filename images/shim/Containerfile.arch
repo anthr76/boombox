@@ -33,9 +33,9 @@ ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/virsh \
 && \
 ln -s /usr/libexec/toolbox/podman-host.sh /usr/libexec/toolbox/podman \
 && \
-ln -s /usr/libexec/toolbox/podman-host.sh /usr/libexec/toolbox/skopeo \
+ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/skopeo \
 && \
-ln -s /usr/libexec/toolbox/podman-host.sh /usr/libexec/toolbox/buildah \
+ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/buildah \
 && \
 ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/virt-install
 
