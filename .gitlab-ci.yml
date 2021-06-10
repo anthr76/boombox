@@ -14,7 +14,7 @@ release:
     - apt-get update && apt-get install -y --no-install-recommends git-core ca-certificates
     - npm install -g semantic-release @semantic-release/gitlab
   script:
-    - semantic-release
+    - semantic-release -r git@gitlab.com:${CI_PROJECT_PATH}.git
   only:
     - master
     - branches
