@@ -3,7 +3,7 @@ stages:
   - 🚀 deploy
 
 release:
-  image: node:12-buster-slim
+  image: node:16-buster-slim
   stage: 🚀 deploy
   before_script:
     - apt-get update && apt-get install -y --no-install-recommends git-core ca-certificates
