@@ -6,6 +6,7 @@ release:
   image: node:12-buster-slim
   stage: 🚀 deploy
   before_script:
+    - 'which git || ( apt update && apt-get install -qq git )'
     - npm install -g semantic-release @semantic-release/gitlab
   script:
     - semantic-release
