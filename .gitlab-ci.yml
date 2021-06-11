@@ -14,10 +14,10 @@ stages:
 
 build_base:
   stage: 📦 build
-  rules:
-    - changes:
-        - .gitlab-ci.yml
-        - $CONTAINER_ROOT/**/*
+  # rules:
+  #   - changes:
+  #       - .gitlab-ci.yml
+  #       - $CONTAINER_ROOT/**/*
   image:
     name: quay.io/buildah/stable:v1.21.0
   before_script:
