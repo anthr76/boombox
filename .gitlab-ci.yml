@@ -1,26 +1,28 @@
 ---
+
+variables:
+  BASE_BRANCH_TAGS: -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA -t quay.io/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAMESPACE
+
+.auth_setup: &auth_setup |
+  mkdir -p /run/containers/$UID/
+  echo "$REG_AUTH_JSON" > /run/containers/$UID/auth.json
+
 stages:
   - 📦 build
   - 🚀 deploy
 
-build:
+build_base:
   stage: 📦 build
   image:
     name: quay.io/buildah/stable:v1.21.0
-  before_script:
-    - su build
-    - mkdir -p /run/containers/$UID/
-    - echo "$REG_AUTH_JSON" > /run/containers/$UID/auth.json
   script:
-    - echo $CI_PROJECT_DIR
-    - pwd
-    - buildah bud --format docker -f $CI_PROJECT_DIR/$CONTAINER_ROOT/Containerfile -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA $CI_PROJECT_DIR/$CONTAINER_ROOT
-    - buildah push
+    - *auth_setup
+    - buildah bud --format docker -f $CI_PROJECT_DIR/$CONTAINER_ROOT/Containerfile -t $BASE_BRANCH_TAGS $CI_PROJECT_DIR/$CONTAINER_ROOT
+    - buildah push $BASE_BRANCH_TAGS
   only:
     - branches
-  parallel:
-    matrix:
-      - CONTAINER_ROOT: ["/images/archlinux/"]
+  variables:
+    CONTAINER_ROOT: "/images/archlinux/"
 
 release:
   image: node:12-buster-slim
@@ -33,3 +35,5 @@ release:
   only:
     - master
     - branches
+  tags:
+    - kutara-cloud
