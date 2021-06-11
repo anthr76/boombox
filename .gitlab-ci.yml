@@ -6,11 +6,10 @@ stages:
 build:
   stage: 📦 build
   image:
-    name: quay.io/buildah/stable:v1.21.0
+    name: quay.io/buildah/stable:v1.20.1
   before_script:
     - mkdir -p /run/containers/$UID/
     - echo "$REG_AUTH_JSON" > /run/containers/$UID/auth.json
-    - dnf reinstall shadow-utils -y
   script:
     - buildah bud --format docker -f $CI_PROJECT_DIR/$CONTAINER_ROOT/Containerfile -t $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG $CONTAINER_ROOT
     - buildah push
