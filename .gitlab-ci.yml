@@ -1,9 +1,9 @@
 ---
 
 variables:
-  BASE_BRANCH_TAGS: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA -t quay.io/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAMESPACE
+  BASE_BRANCH_TAGS: $CI_REGISTRY_IMAGE/archlinux-base:$CI_COMMIT_SHORT_SHA -t quay.io/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAMESPACE/archlinux-base:$CI_COMMIT_SHORT_SHA
 
-.auth_setup: &auth_setup |
+.setup: &setup |
   mkdir -p /run/containers/$UID/
   echo "$REG_AUTH_JSON" > /run/containers/$UID/auth.json
 
@@ -15,10 +15,12 @@ build_base:
   stage: 📦 build
   image:
     name: quay.io/buildah/stable:v1.21.0
+  before_script:
+    - *setup
+    - echo "UPSTREAM_TAG=$(grep 'FROM' < $CI_PROJECT_DIR/$CONTAINER_ROOT/Containerfile | sed -e 's#FROM docker.io/library/archlinux\:##g' -e 's#base.##g')"
   script:
-    - *auth_setup
     - buildah bud --format docker -f $CI_PROJECT_DIR/$CONTAINER_ROOT/Containerfile -t $BASE_BRANCH_TAGS $CI_PROJECT_DIR/$CONTAINER_ROOT
-    - buildah push $BASE_BRANCH_TAGS
+    - buildah push -t $BASE_BRANCH_TAGS
   only:
     - branches
   variables:
