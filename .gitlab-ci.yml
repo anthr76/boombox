@@ -2,7 +2,7 @@
 
 variables:
   BASE_BRANCH_TAG_GL: $CI_REGISTRY_IMAGE/archlinux-base:$CI_COMMIT_SHORT_SHA
-  BASE_BRANCH_TAG_QUAY: quay.io/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAMESPACE/archlinux-base:$CI_COMMIT_SHORT_SHA
+  BASE_BRANCH_TAG_QUAY: quay.io/$CI_PROJECT_NAMESPACE/archlinux-base:$CI_COMMIT_SHORT_SHA
 
 .setup: &setup |
   mkdir -p /run/containers/$UID/
@@ -14,6 +14,10 @@ stages:
 
 build_base:
   stage: 📦 build
+  rules:
+    - changes:
+        - .gitlab-ci.yml
+        - $CONTAINER_ROOT/**/*
   image:
     name: quay.io/buildah/stable:v1.21.0
   before_script:
