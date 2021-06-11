@@ -21,7 +21,8 @@ build_base:
     - echo "UPSTREAM_TAG=$(grep 'FROM' < $CI_PROJECT_DIR/$CONTAINER_ROOT/Containerfile | sed -e 's#FROM docker.io/library/archlinux\:##g' -e 's#base.##g')"
   script:
     - buildah bud --format docker -f $CI_PROJECT_DIR/$CONTAINER_ROOT/Containerfile -t $BASE_BRANCH_TAG_GL -t $BASE_BRANCH_TAG_QUAY $CI_PROJECT_DIR/$CONTAINER_ROOT
-    - buildah push -t $BASE_BRANCH_TAG_GL -t $BASE_BRANCH_TAG_QUAY
+    - buildah push imageID docker://$BASE_BRANCH_TAG_GL
+    - buildah push imageID docker://$BASE_BRANCH_TAG_QUAY
   only:
     - branches
   variables:
