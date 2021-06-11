@@ -17,7 +17,9 @@ build:
     - branches
   parallel:
     matrix:
-      - CONTAINER_ROOT: ["/images/archlinux/Containerfile"]
+      - CONTAINER_ROOT: ["/images/archlinux/"]
+  tags:
+   - kutara-cloud
 
 
 release:
