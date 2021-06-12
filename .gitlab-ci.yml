@@ -42,10 +42,6 @@ build:
   extends:
     - .buildah
     - .container
-  before_script:
-    - echo $CONTAINER_ROOT $GL_TAG $QUAY_TAG $NS_QUAY $NS_GL
-    - echo 
-    - echo ***************
   script:
     - buildah bud --format docker -f $CI_PROJECT_DIR/$CONTAINER_ROOT/Containerfile -t $GL_BUILD_TAG -t $QUAY_BUILD_TAG $CI_PROJECT_DIR/$CONTAINER_ROOT
     - buildah push --tls-verify=false $GL_BUILD_TAG
