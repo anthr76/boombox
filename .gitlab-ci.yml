@@ -1,7 +1,7 @@
 ---
 
 variables:
-  REG_NS_GL: $CI_REGISTRY_IMAGE/archlinux-base
+  REG_BASE_NS_GL: $CI_REGISTRY_IMAGE/archlinux-base
   REG_NS_QUAY: quay.io/$CI_PROJECT_NAMESPACE/toolbox-archlinux-base
 
 .setup: &setup |
@@ -23,7 +23,7 @@ build_base:
   before_script:
     - *setup
   script:
-    - buildah bud --format docker -f $CI_PROJECT_DIR/$CONTAINER_ROOT/Containerfile -t $BASE_BRANCH_TAG_GL:$CI_COMMIT_SHORT_SHA -t $BASE_BRANCH_TAG_QUAY:$CI_COMMIT_SHORT_SHA $CI_PROJECT_DIR/$CONTAINER_ROOT
+    - buildah bud --format docker -f $CI_PROJECT_DIR/$CONTAINER_ROOT/Containerfile -t $REG_BASE_NS_GL:$CI_COMMIT_SHORT_SHA -t $REG_NS_QUAY:$CI_COMMIT_SHORT_SHA $CI_PROJECT_DIR/$CONTAINER_ROOT
     - buildah push --tls-verify=false $BASE_BRANCH_TAG_GL
     - buildah push $BASE_BRANCH_TAG_QUAY
   only:
