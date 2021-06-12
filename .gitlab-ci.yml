@@ -14,15 +14,13 @@ variables:
   mkdir -p /run/containers/$UID/
   echo "$REG_AUTH_JSON" > /run/containers/$UID/auth.json
 
-.pind:
-  services:
-    - name: quay.io/skopeo/stable:v1.2.0
-      entrypoint: ["/bin/bash"]
-    - name: quay.io/podman/stable:v3.1.2
-      entrypoint: ["/bin/bash"]
-    - name: quay.io/buildah/stable:v1.21.0
-      entrypoint: ["/bin/bash"]
-  image: registry.access.redhat.com/ubi8/ubi-minimal:8.4
+.buildah:
+  image: quay.io/buildah/stable:v1.21.0
+  before_script:
+    - *setup
+
+.skopeo:
+  image: quay.io/skopeo/stable:v1.2.0
   before_script:
     - *setup
 
@@ -48,7 +46,7 @@ stages:
 build:
   stage: 📦 build
   extends:
-    - .pind
+    - .buildah
     - .container
   script:
     - buildah bud --format docker -f $CI_PROJECT_DIR/$CONTAINER_ROOT/Containerfile -t $GL_TAG -t QUAY_TAG $CI_PROJECT_DIR/$CONTAINER_ROOT
@@ -59,14 +57,14 @@ build:
 
 release:
   extends:
-    - .pind
+    - .skopeo
     - .container
   stage: 🚀 deploy
   script:
-    - skopeo copy $GL_TAG $NS_GL:latest
-    - skopeo copy $QUAY_TAG $NS_QUAY:latest
-    - skopeo copy $GL_TAG $NS_GL:$CI_COMMIT_TAG
-    - skopeo copy $QUAY_TAG $NS_QUAY:$CI_COMMIT_TAG
+    - copy $GL_TAG $NS_GL:latest
+    - copy $QUAY_TAG $NS_QUAY:latest
+    - copy $GL_TAG $NS_GL:$CI_COMMIT_TAG
+    - copy $QUAY_TAG $NS_QUAY:$CI_COMMIT_TAG
   only:
     - tags
 
