@@ -20,7 +20,7 @@ variables:
 .skopeo:
   image: 
     name: quay.io/skopeo/stable:v1.2.0
-    entrypoint: ["/bin/bash"]
+    entrypoint: [""]
 
 .container:
   parallel:
