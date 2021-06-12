@@ -24,8 +24,8 @@ build_base:
     - *setup
   script:
     - buildah bud --format docker -f $CI_PROJECT_DIR/$CONTAINER_ROOT/Containerfile -t $REG_BASE_NS_GL:$CI_COMMIT_SHORT_SHA -t $REG_NS_QUAY:$CI_COMMIT_SHORT_SHA $CI_PROJECT_DIR/$CONTAINER_ROOT
-    - buildah push --tls-verify=false $BASE_BRANCH_TAG_GL
-    - buildah push $BASE_BRANCH_TAG_QUAY
+    - buildah push --tls-verify=false $REG_BASE_NS_GL:$CI_COMMIT_SHORT_SHA
+    - buildah push $REG_NS_QUAY:$CI_COMMIT_SHORT_SHA
   only:
     - branches
   variables:
