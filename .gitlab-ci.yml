@@ -17,11 +17,12 @@ variables:
   before_script:
     - *setup
 
-# Skopeo has an entrypoint set so executing auth here doesn't work.
 .skopeo:
   image: 
     name: quay.io/skopeo/stable:v1.2.0
-    entrypoint: ["/usr/bin/bash"]
+    entrypoint: ["/bin/bash"]
+  before_script:
+    - *setup
 
 .container:
   parallel:
@@ -44,7 +45,6 @@ build:
     - .buildah
     - .container
   script:
-    - *setup
     - buildah bud --format docker -f $CI_PROJECT_DIR/$CONTAINER_ROOT/Containerfile -t $GL_BUILD_TAG -t $QUAY_BUILD_TAG $CI_PROJECT_DIR/$CONTAINER_ROOT
     - buildah push --tls-verify=false $GL_BUILD_TAG
     - buildah push $QUAY_BUILD_TAG
