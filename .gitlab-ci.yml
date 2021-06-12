@@ -21,8 +21,6 @@ variables:
   image: 
     name: quay.io/skopeo/stable:v1.2.0
     entrypoint: ["/bin/bash"]
-  before_script:
-    - *setup
 
 .container:
   parallel:
@@ -55,6 +53,7 @@ release:
     - .container
   stage: 🚀 deploy
   script:
+    - *setup
     - skopeo copy $GL_BUILD_TAG $GL_LATEST_TAG
     - skopeo copy $GL_BUILD_TAG $GL_RELEASE_TAG
     - skopeo copy $QUAY_BUILD_TAG $QUAY_LATEST_TAG
