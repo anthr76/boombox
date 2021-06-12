@@ -18,7 +18,9 @@ variables:
     - *setup
 
 .skopeo:
-  image: quay.io/skopeo/stable:v1.2.0
+  image: 
+    name: quay.io/skopeo/stable:v1.2.0
+    entrypoint: ["/bin/bash"]
   before_script:
     - *setup
 
@@ -53,10 +55,10 @@ release:
     - .container
   stage: 🚀 deploy
   script:
-    - copy $GL_BUILD_TAG $GL_LATEST_TAG
-    - copy $GL_BUILD_TAG $GL_RELEASE_TAG
-    - copy $QUAY_BUILD_TAG $QUAY_LATEST_TAG
-    - copy $QUAY_BUILD_TAG $QUAY_RELEASE_TAG
+    - skopeo copy $GL_BUILD_TAG $GL_LATEST_TAG
+    - skopeo copy $GL_BUILD_TAG $GL_RELEASE_TAG
+    - skopeo copy $QUAY_BUILD_TAG $QUAY_LATEST_TAG
+    - skopeo copy $QUAY_BUILD_TAG $QUAY_RELEASE_TAG
   only:
     - tags
 
@@ -82,6 +84,7 @@ tag_release-dryrun:
 
 tag_release:
   extends: .semantic-release
+  stage: 🚀 deploy
   only:
     refs:
       - master@kutara/tooling
