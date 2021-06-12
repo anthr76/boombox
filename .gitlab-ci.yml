@@ -18,8 +18,10 @@ variables:
   services:
     - name: quay.io/skopeo/stable:v1.2.0
       entrypoint: ["/bin/bash"]
-    - quay.io/podman/stable:v3.1.2
-    - quay.io/buildah/stable:v1.21.0
+    - name: quay.io/podman/stable:v3.1.2
+      entrypoint: ["/bin/bash"]
+    - name: quay.io/buildah/stable:v1.21.0
+      entrypoint: ["/bin/bash"]
   image: registry.access.redhat.com/ubi8/ubi-minimal:8.4
   before_script:
     - *setup
