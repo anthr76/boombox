@@ -1,5 +1,13 @@
 ---
 
+variables:
+  QUAY_BUILD_TAG: quay.io/$CI_PROJECT_NAMESPACE/$NS_QUAY:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
+  GL_BUILD_TAG: $CI_REGISTRY_IMAGE/$NS_GL:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
+  QUAY_RELEASE_TAG: quay.io/$CI_PROJECT_NAMESPACE/$NS_QUAY:$CI_COMMIT_TAG
+  GL_RELEASE_TAG: $CI_REGISTRY_IMAGE/$NS_GL:$CI_COMMIT_TAG
+  QUAY_LATEST_TAG: quay.io/$CI_PROJECT_NAMESPACE/$NS_QUAY:latest
+  GL_LATEST_TAG: $CI_REGISTRY_IMAGE/$NS_GL:latest
+
 .setup: &setup |
   mkdir -p /run/containers/$UID/
   echo "$REG_AUTH_JSON" > /run/containers/$UID/auth.json
@@ -18,15 +26,11 @@
   parallel:
     matrix:
       - CONTAINER_ROOT: "/images/archlinux/"
-        GL_TAG: $CI_REGISTRY_IMAGE/archlinux-base:CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
-        QUAY_TAG: quay.io/$CI_PROJECT_NAMESPACE/toolbox-archlinux-base:CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
-        NS_QUAY: quay.io/$CI_PROJECT_NAMESPACE/toolbox-archlinux-base
-        NS_GL: $CI_REGISTRY_IMAGE/archlinux-base
+        NS_QUAY: toolbox-archlinux-base
+        NS_GL: archlinux-base
       - CONTAINER_ROOT: "/images/shim/"
-        GL_TAG: $CI_REGISTRY_IMAGE/archlinux-toolbox:CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
-        QUAY_TAG: quay.io/$CI_PROJECT_NAMESPACE/toolbox-archlinux:CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
-        NS_GL: $CI_REGISTRY_IMAGE/archlinux-toolbox
-        NS_QUAY: quay.io/$CI_PROJECT_NAMESPACE/toolbox-archlinux
+        NS_GL: archlinux-toolbox
+        NS_QUAY: toolbox-archlinux
 
 stages:
   - 📦 build
@@ -43,9 +47,9 @@ build:
     - echo 
     - echo ***************
   script:
-    - buildah bud --format docker -f $CI_PROJECT_DIR/$CONTAINER_ROOT/Containerfile -t $GL_TAG -t $QUAY_TAG $CI_PROJECT_DIR/$CONTAINER_ROOT
-    - buildah push --tls-verify=false $GL_TAG
-    - buildah push $QUAY_TAG
+    - buildah bud --format docker -f $CI_PROJECT_DIR/$CONTAINER_ROOT/Containerfile -t $GL_BUILD_TAG -t $QUAY_BUILD_TAG $CI_PROJECT_DIR/$CONTAINER_ROOT
+    - buildah push --tls-verify=false $GL_BUILD_TAG
+    - buildah push $QUAY_BUILD_TAG
 
 release:
   extends:
@@ -53,10 +57,10 @@ release:
     - .container
   stage: 🚀 deploy
   script:
-    - copy $GL_TAG $NS_GL:latest
-    - copy $QUAY_TAG $NS_QUAY:latest
-    - copy $GL_TAG $NS_GL:$CI_COMMIT_TAG
-    - copy $QUAY_TAG $NS_QUAY:$CI_COMMIT_TAG
+    - copy $GL_BUILD_TAG $GL_LATEST_TAG
+    - copy $GL_BUILD_TAG $GL_RELEASE_TAG
+    - copy $QUAY_BUILD_TAG $QUAY_LATEST_TAG
+    - copy $QUAY_BUILD_TAG $QUAY_RELEASE_TAG
   only:
     - tags
 
