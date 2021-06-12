@@ -1,19 +1,20 @@
 ---
-plugins:
-  - "@semantic-release/commit-analyzer"
-  - "@semantic-release/release-notes-generator"
+verifyConditions:
   - "@semantic-release/gitlab"
+prepare: false
+publish:
+  - "@semantic-release/gitlab"
+success: false
+fail: false
+npmPublish: false
 branches:
   # release
   - "master"
   # maintenance
   - "^maint-[0-9]*-([a-z][a-z0-9]*)(-[a-z0-9]+)*"
-  # pre-release
-  - name: "stage"
-    prerelease: "stage"
   - name: "development"
     prerelease: "development"
-verifyConditions:
-  - "@semantic-release/gitlab"
-publish:
+plugins:
+  - "@semantic-release/commit-analyzer"
+  - "@semantic-release/release-notes-generator"
   - "@semantic-release/gitlab"

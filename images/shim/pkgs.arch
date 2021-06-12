@@ -31,3 +31,4 @@ kustomize
 p7zip
 croc
 kubie-bin
+python-dnspython
