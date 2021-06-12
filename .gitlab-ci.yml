@@ -2,45 +2,95 @@
 
 variables:
   REG_BASE_NS_GL: $CI_REGISTRY_IMAGE/archlinux-base
-  REG_NS_QUAY: quay.io/$CI_PROJECT_NAMESPACE/toolbox-archlinux-base
+  REG_BASE_NS_QUAY: quay.io/$CI_PROJECT_NAMESPACE/toolbox-archlinux-base
+  REG_TB_NS_GL: $CI_REGISTRY_IMAGE/archlinux-toolbox
+  REG_TB_NS_QUAY: quay.io/$CI_PROJECT_NAMESPACE/toolbox-archlinux-toolbox
+  BASE_BUILD_GL: $REG_BASE_NS_GL:$CI_COMMIT_SHORT_SHA
+  BASE_BUILD_QUAY: $REG_BASE_NS_QUAY:$CI_COMMIT_SHORT_SHA
+  TB_BUILD_GL: $CI_REGISTRY_IMAGE/archlinux-toolbox
+  TB_BUILD_QUAY: quay.io/$CI_PROJECT_NAMESPACE/toolbox-archlinux-toolbox
 
 .setup: &setup |
   mkdir -p /run/containers/$UID/
   echo "$REG_AUTH_JSON" > /run/containers/$UID/auth.json
 
+.pind:
+  services:
+    - quay.io/skopeo/stable:v1.2.0
+    - quay.io/podman/stable:v3.1.2
+  image: registry.access.redhat.com/ubi8/ubi-minimal:8.4
+  before_script:
+    - *setup
+
+.container:
+  parallel:
+    matrix:
+      - CONTAINER_ROOT: "/images/archlinux/"
+        GL_TAG: $BASE_BUILD_GL
+        QUAY_TAG: $BASE_BUILD_QUAY
+        NS_QUAY: $REG_BASE_NS_QUAY
+        NS_GL: $REG_BASE_NS_GL
+      - CONTAINER_ROOT: "/images/shim/"
+        GL_TAG: $TB_BUILD_GL
+        QUAY_TAG: $TB_BUILD_QUAY
+        NS_GL: $REG_TB_NS_GL
+        NS_QUAY: $REG_TB_NS_QUAY
+
 stages:
   - 📦 build
   - 🚀 deploy
 
-build_base:
+build:
   stage: 📦 build
-  # rules:
-  #   - changes:
-  #       - .gitlab-ci.yml
-  #       - $CONTAINER_ROOT/**/*
-  image:
-    name: quay.io/buildah/stable:v1.21.0
-  before_script:
-    - *setup
+  rules:
+    - changes:
+        - .gitlab-ci.yml
+        - $CONTAINER_ROOT/**/*
+  extends:
+    - .pind
+    - .container
   script:
-    - buildah bud --format docker -f $CI_PROJECT_DIR/$CONTAINER_ROOT/Containerfile -t $REG_BASE_NS_GL:$CI_COMMIT_SHORT_SHA -t $REG_NS_QUAY:$CI_COMMIT_SHORT_SHA $CI_PROJECT_DIR/$CONTAINER_ROOT
-    - buildah push --tls-verify=false $REG_BASE_NS_GL:$CI_COMMIT_SHORT_SHA
-    - buildah push $REG_NS_QUAY:$CI_COMMIT_SHORT_SHA
+    - buildah bud --format docker -f $CI_PROJECT_DIR/$CONTAINER_ROOT/Containerfile -t $GL_TAG -t QUAY_TAG $CI_PROJECT_DIR/$CONTAINER_ROOT
+    - buildah push --tls-verify=false $GL_TAG
+    - buildah push $QUAY_TAG
   only:
     - branches
-  variables:
-    CONTAINER_ROOT: "/images/archlinux/"
 
 release:
-  image: node:12-buster-slim
+  extends:
+    - .pind
+    - .container_root
   stage: 🚀 deploy
+  script:
+    - skopeo copy $GL_TAG $NS_GL:latest
+    - skopeo copy $QUAY_TAG $NS_QUAY:latest
+    - skopeo copy $GL_TAG $NS_GL:$CI_COMMIT_TAG
+    - skopeo copy $QUAY_TAG $NS_QUAY:$CI_COMMIT_TAG
+  only:
+    - tags
+
+.semantic-release:
+  image: node:12-buster-slim
+  stage: prepare-release
   before_script:
-    - 'which git || ( apt update && apt-get install -qq git )'
+    - apt-get update && apt-get install -y --no-install-recommends git-core ca-certificates
     - npm install -g semantic-release @semantic-release/gitlab
   script:
-    - semantic-release
+    - semantic-release $DRY_RUN_OPT -b $CI_COMMIT_REF_NAME
+
+tag_release-dryrun:
+  extends: .semantic-release
+  variables:
+    DRY_RUN_OPT: "-d"
   only:
-    - master
-    - branches
-  tags:
-    - kutara-cloud
+    refs:
+      - branches@kutara/tooling
+  except:
+    refs:
+      - master
+
+tag_release:
+  extends: .semantic-release
+  only:
+    refs:
+      - master@kutara/tooling
