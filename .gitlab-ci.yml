@@ -49,7 +49,7 @@ build:
     - .buildah
     - .container
   script:
-    - buildah bud --format docker -f $CI_PROJECT_DIR/$CONTAINER_ROOT/Containerfile -t $GL_TAG -t QUAY_TAG $CI_PROJECT_DIR/$CONTAINER_ROOT
+    - buildah bud --format docker -f $CI_PROJECT_DIR/$CONTAINER_ROOT/Containerfile -t $GL_TAG -t $QUAY_TAG $CI_PROJECT_DIR/$CONTAINER_ROOT
     - buildah push --tls-verify=false $GL_TAG
     - buildah push $QUAY_TAG
   only:
