@@ -32,6 +32,8 @@ variables:
         QUAY_TAG: $BASE_BUILD_QUAY
         NS_QUAY: $REG_BASE_NS_QUAY
         NS_GL: $REG_BASE_NS_GL
+        FOO_TEST: $REG_BASE_NS_GL:$CI_COMMIT_SHORT_SHA
+        FOO_TEST2: $CI_REGISTRY_IMAGE/archlinux-base:$CI_COMMIT_SHORT_SHA
       - CONTAINER_ROOT: "/images/shim/"
         GL_TAG: $TB_BUILD_GL
         QUAY_TAG: $TB_BUILD_QUAY
@@ -49,7 +51,7 @@ build:
     - .buildah
     - .container
   before_script:
-    - echo $BASE_BUILD_GL $BASE_BUILD_QUAY $REG_BASE_NS_QUAY $REG_BASE_NS_GL
+    - echo $BASE_BUILD_GL $BASE_BUILD_QUAY $REG_BASE_NS_QUAY $REG_BASE_NS_GL $FOO_TEST $FOO_TEST2
   script:
     - buildah bud --format docker -f $CI_PROJECT_DIR/$CONTAINER_ROOT/Containerfile -t $GL_TAG -t $QUAY_TAG $CI_PROJECT_DIR/$CONTAINER_ROOT
     - buildah push --tls-verify=false $GL_TAG
