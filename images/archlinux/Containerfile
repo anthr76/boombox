@@ -1,4 +1,4 @@
-FROM docker.io/library/archlinux:base-20210509.0.21942
+FROM docker.io/library/archlinux@sha256:9d50d7086b799dd8dcc20906198138005e837cbbd84b469713d6ab9fce973e9b
 
 ENV NAME=archlinux-toolbox VERSION=base
 LABEL com.github.containers.toolbox="true" \
@@ -20,4 +20,4 @@ RUN pacman -Scc --noconfirm
 
 CMD /bin/sh
 
-LABEL org.opencontainers.image.source https://github.com/anthr76/tooling
+LABEL org.opencontainers.image.source https://gitlab.com/kutara/tooling
