@@ -1,15 +1,5 @@
 ---
 
-variables:
-  REG_BASE_NS_GL: $CI_REGISTRY_IMAGE/archlinux-base
-  REG_BASE_NS_QUAY: quay.io/$CI_PROJECT_NAMESPACE/toolbox-archlinux-base
-  REG_TB_NS_GL: $CI_REGISTRY_IMAGE/archlinux-toolbox
-  REG_TB_NS_QUAY: quay.io/$CI_PROJECT_NAMESPACE/toolbox-archlinux-toolbox
-  BASE_BUILD_GL: $REG_BASE_NS_GL:$CI_COMMIT_SHORT_SHA
-  BASE_BUILD_QUAY: $REG_BASE_NS_QUAY:$CI_COMMIT_SHORT_SHA
-  TB_BUILD_GL: $CI_REGISTRY_IMAGE/archlinux-toolbox
-  TB_BUILD_QUAY: quay.io/$CI_PROJECT_NAMESPACE/toolbox-archlinux-toolbox
-
 .setup: &setup |
   mkdir -p /run/containers/$UID/
   echo "$REG_AUTH_JSON" > /run/containers/$UID/auth.json
@@ -28,17 +18,15 @@ variables:
   parallel:
     matrix:
       - CONTAINER_ROOT: "/images/archlinux/"
-        GL_TAG: $BASE_BUILD_GL
-        QUAY_TAG: $BASE_BUILD_QUAY
-        NS_QUAY: $REG_BASE_NS_QUAY
-        NS_GL: $REG_BASE_NS_GL
-        FOO_TEST: $REG_BASE_NS_GL:$CI_COMMIT_SHORT_SHA
-        FOO_TEST2: $CI_REGISTRY_IMAGE/archlinux-base:$CI_COMMIT_SHORT_SHA
+        GL_TAG: $CI_REGISTRY_IMAGE/archlinux-base:CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
+        QUAY_TAG: quay.io/$CI_PROJECT_NAMESPACE/toolbox-archlinux-base:CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
+        NS_QUAY: quay.io/$CI_PROJECT_NAMESPACE/toolbox-archlinux-base
+        NS_GL: $CI_REGISTRY_IMAGE/archlinux-base
       - CONTAINER_ROOT: "/images/shim/"
-        GL_TAG: $TB_BUILD_GL
-        QUAY_TAG: $TB_BUILD_QUAY
-        NS_GL: $REG_TB_NS_GL
-        NS_QUAY: $REG_TB_NS_QUAY
+        GL_TAG: $CI_REGISTRY_IMAGE/archlinux-toolbox:CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
+        QUAY_TAG: quay.io/$CI_PROJECT_NAMESPACE/toolbox-archlinux:CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
+        NS_GL: $CI_REGISTRY_IMAGE/archlinux-toolbox
+        NS_QUAY: quay.io/$CI_PROJECT_NAMESPACE/toolbox-archlinux
 
 stages:
   - 📦 build
@@ -51,7 +39,7 @@ build:
     - .buildah
     - .container
   before_script:
-    - echo $BASE_BUILD_GL $BASE_BUILD_QUAY $REG_BASE_NS_QUAY $REG_BASE_NS_GL $FOO_TEST $FOO_TEST2
+    - echo $BASE_BUILD_GL $BASE_BUILD_QUAY $REG_BASE_NS_QUAY $REG_BASE_NS_GL
   script:
     - buildah bud --format docker -f $CI_PROJECT_DIR/$CONTAINER_ROOT/Containerfile -t $GL_TAG -t $QUAY_TAG $CI_PROJECT_DIR/$CONTAINER_ROOT
     - buildah push --tls-verify=false $GL_TAG
