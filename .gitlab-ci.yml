@@ -22,6 +22,9 @@ build arch-toolbox:
     # Specifies location of DOCKERFILE in project
     SCRIPT_DIR: "images/archlinux/"
     SCRIPT_NAME: "Container.sh"
+  only:
+    changes:
+      - images/archlinux/Container.sh
 
 
 build devops-toolbox:
@@ -30,6 +33,9 @@ build devops-toolbox:
     # Specifies location of DOCKERFILE in project
     SCRIPT_DIR: "images/shim/"
     SCRIPT_NAME: "Container.sh"
+  only:
+    changes:
+      - images/shim/Container.sh
 
 .deploy:
   script:
