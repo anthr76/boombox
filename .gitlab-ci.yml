@@ -1,89 +1,46 @@
 ---
 
-variables:
-  QUAY_BUILD_TAG: quay.io/$CI_PROJECT_NAMESPACE/$NS_QUAY:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
-  GL_BUILD_TAG: $CI_REGISTRY_IMAGE/$NS_GL:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
-  QUAY_RELEASE_TAG: quay.io/$CI_PROJECT_NAMESPACE/$NS_QUAY:$CI_COMMIT_TAG
-  GL_RELEASE_TAG: $CI_REGISTRY_IMAGE/$NS_GL:$CI_COMMIT_TAG
-  QUAY_LATEST_TAG: quay.io/$CI_PROJECT_NAMESPACE/$NS_QUAY:latest
-  GL_LATEST_TAG: $CI_REGISTRY_IMAGE/$NS_GL:latest
-
-.setup: &setup |
-  mkdir -p /run/containers/$UID/
-  echo "$REG_AUTH_JSON" > /run/containers/$UID/auth.json
-
-.buildah:
-  image: quay.io/buildah/stable:v1.21.0
-  before_script:
-    - *setup
-
-.skopeo:
-  image: 
-    name: quay.io/skopeo/stable:v1.2.0
-    entrypoint: [""]
-
-.container:
-  parallel:
-    matrix:
-      - CONTAINER_ROOT: "/images/archlinux/"
-        NS_QUAY: toolbox-archlinux-base
-        NS_GL: archlinux-base
-      - CONTAINER_ROOT: "/images/shim/"
-        NS_GL: archlinux-toolbox
-        NS_QUAY: toolbox-archlinux
-
 stages:
   - 📦 build
-  - 🏗️ prep
+  - ♻️ push build
+  - 🧹 cleanup
+  - ✨ lint
+  - 🚑 scan
   - 🚀 deploy
+  - 🚀 release
 
-build:
-  stage: 📦 build
-  extends:
-    - .buildah
-    - .container
-  script:
-    - buildah bud --format docker -f $CI_PROJECT_DIR/$CONTAINER_ROOT/Containerfile -t $GL_BUILD_TAG -t $QUAY_BUILD_TAG $CI_PROJECT_DIR/$CONTAINER_ROOT
-    - buildah push --tls-verify=false $GL_BUILD_TAG
-    - buildah push $QUAY_BUILD_TAG
+include:
+  - project: 'kutara/gitlab-ci-templates'
+    ref: master
+    file:
+      - 'templates/buildah-build.yml'
+      - 'templates/semantic-release.yml'
 
-release:
-  extends:
-    - .skopeo
-    - .container
-  stage: 🚀 deploy
-  script:
-    - *setup
-    - skopeo copy $GL_BUILD_TAG $GL_LATEST_TAG
-    - skopeo copy $GL_BUILD_TAG $GL_RELEASE_TAG
-    - skopeo copy $QUAY_BUILD_TAG $QUAY_LATEST_TAG
-    - skopeo copy $QUAY_BUILD_TAG $QUAY_RELEASE_TAG
-  only:
-    - tags
-
-.semantic-release:
-  image: node:12-buster-slim
-  stage: 🏗️ prep
-  before_script:
-    - apt-get update && apt-get install -y --no-install-recommends git-core ca-certificates
-    - npm install -g semantic-release @semantic-release/gitlab
-  script:
-    - semantic-release $DRY_RUN_OPT -b $CI_COMMIT_REF_NAME
-
-tag_release-dryrun:
-  extends: .semantic-release
+build arch-toolbox:
+  extends: .buildah native
   variables:
-    DRY_RUN_OPT: "-d"
-  only:
-    refs:
-      - branches@kutara/tooling
-  except:
-    refs:
-      - master
+    # Specifies location of DOCKERFILE in project
+    SCRIPT_DIR: "images/archlinux/"
+    SCRIPT_NAME: "Container.sh"
 
-tag_release:
-  extends: .semantic-release
-  stage: 🚀 deploy
-  only:
-    refs:
-      - master@kutara/tooling
+
+build devops-toolbox:
+  extends: .buildah native
+  variables:
+    # Specifies location of DOCKERFILE in project
+    SCRIPT_DIR: "images/shim/"
+    SCRIPT_NAME: "Container.sh"
+
+.deploy:
+  script:
+    - mkdir -p /run/containers/$UID/
+    - echo "$DOCKERCFG" > /run/containers/$UID/auth.json
+    - export REGISTRY_AUTH_FILE=$(echo /run/containers/$UID/auth.json)
+    - skopeo inspect oci:build/image
+    - skopeo copy --all -f v2s2 oci:build/image docker://$GL_LATEST_TAG
+    - skopeo copy --all -f v2s2 oci:build/image docker://$GL_RELEASE_TAG
+    - skopeo copy --all oci:build/image docker://$QUAY_LATEST_TAG
+    - skopeo copy --all oci:build/image docker://$QUAY_RELEASE_TAG
+    - UPSTREAM_VERSION=$(cat build/upstream-version)
+    - skopeo copy --all -f v2s2 oci:build/image docker://$CI_REGISTRY_IMAGE:$UPSTREAM_VERSION
+    - skopeo copy --all oci:build/image docker://quay.io/$CI_PROJECT_ROOT_NAMESPACE/$CI_PROJECT_NAME:$UPSTREAM_VERSION
