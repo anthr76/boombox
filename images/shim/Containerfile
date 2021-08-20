@@ -16,10 +16,11 @@ COPY 01-shim.sh /etc/profile.d/01-shim.sh
 COPY extra-packages /
 
 RUN \
-    bash -c "pacman --noconfirm -Syu && \
+    bash -c " \
+    pacman --noconfirm -Syu && \
     pacman -Syu --needed --noconfirm - < extra-packages && \
     rm /extra-packages && \
-    mkdir /etc/sudoers.d/ && echo \x22%wheel ALL=(ALL) NOPASSWD: ALL\x22 > /etc/sudoers.d/toolbox && \
+    mkdir /etc/sudoers.d/ && echo '%wheel ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/toolbox && \
     touch /etc/machine-id && \
     pacman --noconfirm -S curl zsh neovim && \
     ls /usr/libexec/toolbox && \
