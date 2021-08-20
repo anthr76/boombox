@@ -1,4 +1,4 @@
- #!/bin/bash
+#!/bin/bash
 
  # https://github.com/owtaylor/toolbox-vscode/blob/main/podman-host.sh
 
@@ -21,6 +21,9 @@ if [ "$1" == "exec" ] ; then
             USER \
             WAYLAND_DISPLAY \
             XAUTHORITY \
+            COLORTERM \
+            TERM \
+            VTE_VERSION \
             XDG_{CURRENT_DESKTOP,DATA_DIRS,MENU_PREFIX,RUNTIME_DIR,SEAT,VTNR} \
             XDG_SESSION_{DESKTOP,ID,TYPE} \
         ; do
