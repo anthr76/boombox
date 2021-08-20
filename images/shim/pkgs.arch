@@ -15,7 +15,7 @@ flatpak-xdg-utils
 rpmlint
 gnome-keyring
 yamllint
-taskfile-git
+gotask-taskfile-bin
 shellcheck
 tmux
 sops
