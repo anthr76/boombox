@@ -20,6 +20,8 @@ include:
   image: quay.io/buildah/stable:v1.21.0
   extends:
     - .container build
+  variables:
+    - ARCH: amd64
   script:
     - echo "Building ${GL_BUILD_TAG} ${QUAY_BUILD_TAG} using ${CONTAINER_DIR}/${CONTAINERFILE_NAME}"
     - mkdir -p /run/containers/$UID/
@@ -33,8 +35,6 @@ include:
     - buildah push -f docker $GL_BUILD_TAG oci:build/image
   parallel:
     matrix:
-      - ARCH:
-        - amd64
       - CONTAINER_DIR:
         - images/shim
         - images/archlinux
