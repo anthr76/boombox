@@ -54,4 +54,4 @@ RUN \
 
 CMD ["/bin/sh"]
 
-LABEL org.opencontainers.image.source https://github.com/anthr76/tooling
+LABEL org.opencontainers.image.source https://gitlab.com/kutara/tooling
