@@ -16,11 +16,6 @@ include:
       - 'templates/container-build.yml'
       - 'templates/semantic-release.yml'
 
-# Project specific variables
-variables:
-  CONTAINERFILE_NAME: "Dockerfile"
-
-
 .buildah:
   image: quay.io/buildah/stable:v1.21.0
   extends:
