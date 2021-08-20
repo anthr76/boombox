@@ -45,7 +45,8 @@ RUN \
     rm -rf /root && rm -rf /home/makepkg && \
     mkdir /root && \
     chmod -R 777 /root && \
-    pacman -Scc --noconfirm && pacman --noconfirm -R $(pacman -Qtdq)"
+    pacman -Scc --noconfirm && \
+    pacman --noconfirm -R \x22$(pacman -Qtdq)\x22"
 
 CMD ["/bin/sh"]
 
