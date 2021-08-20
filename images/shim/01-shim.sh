@@ -98,4 +98,4 @@ unset toolbox_welcome_stub
 
 export PATH="/usr/libexec/toolbox:$PATH"
 
-alias provision="yay -Syu - < /opt/pkgs"
+alias provision="paru -Syu - < /opt/pkgs"
