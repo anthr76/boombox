@@ -16,26 +16,40 @@ include:
       - 'templates/buildah-build.yml'
       - 'templates/semantic-release.yml'
 
-build arch-toolbox:
-  extends: .buildah native
-  variables:
-    # Specifies location of DOCKERFILE in project
-    SCRIPT_DIR: "images/archlinux/"
-    SCRIPT_NAME: "Container.sh"
-  only:
-    changes:
-      - images/archlinux/Container.sh
+# Project specific variables
+variables:
+  CONTAINERFILE_NAME: "Dockerfile"
 
 
-build devops-toolbox:
-  extends: .buildah native
-  variables:
-    # Specifies location of DOCKERFILE in project
-    SCRIPT_DIR: "images/shim/"
-    SCRIPT_NAME: "Container.sh"
-  only:
-    changes:
-      - images/shim/Container.sh
+.buildah:
+  image: quay.io/buildah/stable:v1.21.0
+  extends:
+    - .container build
+  script:
+    - echo "Building ${GL_BUILD_TAG} ${QUAY_BUILD_TAG} using ${CONTAINER_DIR}/${CONTAINERFILE_NAME}"
+    - mkdir -p /run/containers/$UID/
+    - echo "$DOCKERCFG" > /run/containers/$UID/auth.json
+    - export fed_ver=$(echo $FGC | tr -d f)
+    - mkdir -p /var/cache/dnf/$fed_ver
+    - buildah bud --arch="$ARCH" --build-arg=BUILDPLATFORM=linux/$ARCH --build-arg=TARGETPLATFORM=linux/$ARCH -v /var/cache/dnf/$fed_ver:/var/cache/dnf/$fed_ver:O -f $CI_PROJECT_DIR/$CONTAINER_DIR/$CONTAINERFILE_NAME -t $GL_BUILD_TAG -t $QUAY_BUILD_TAG $CI_PROJECT_DIR/$CONTAINER_DIR
+    - buildah push -f oci --tls-verify=false $GL_BUILD_TAG
+    - buildah push $QUAY_BUILD_TAG
+    - mkdir -p build
+    - buildah push -f docker $GL_BUILD_TAG oci:build/image
+  parallel:
+    matrix:
+      - ARCH:
+        - amd64
+      - CONTAINER_DIR:
+        - images/shim
+        - images/archlinux
+  cache:
+    paths:
+      - /var/cache/dnf
+  artifacts:
+    paths:
+      - build/amd64
+
 
 .deploy:
   script:
