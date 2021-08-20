@@ -11,6 +11,8 @@ LABEL com.github.containers.toolbox="true" \
 
 COPY host-runner /usr/libexec/toolbox/host-runner
 COPY podman-host.sh /usr/libexec/toolbox/podman-host.sh
+COPY pkgs.arch /opt/pkgs
+COPY 01-shim.sh /etc/profile.d/01-shim.sh
 
 RUN \
     bash -c "pacman --noconfirm -Syu && \
@@ -44,9 +46,6 @@ RUN \
     mkdir /root && \
     chmod -R 777 /root && \
     pacman -Scc --noconfirm && pacman --noconfirm -R $(pacman -Qtdq)"
-
-COPY pkgs.arch /opt/pkgs
-COPY 01-shim.sh /etc/profile.d/01-shim.sh
 
 CMD ["/bin/sh"]
 
