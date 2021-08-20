@@ -10,14 +10,15 @@ LABEL com.github.containers.toolbox="true" \
       maintainer="Anthony Rabbito <hello@anthonyrabbito.com>"
 
 COPY extra-packages /
-RUN pacman -Syu --needed --noconfirm - < extra-packages
-RUN rm /extra-packages
 
-RUN mkdir /etc/sudoers.d/ && echo "%wheel ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/toolbox
-RUN touch /etc/machine-id
+RUN \
+pacman -Syu --needed --noconfirm - < extra-packages && \
+rm /extra-packages && \
+mkdir /etc/sudoers.d/ && echo "%wheel ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/toolbox && \
+touch /etc/machine-id && \
+pacman -Scc --noconfirm
 
-RUN pacman -Scc --noconfirm
 
-CMD /bin/sh
+CMD ["/bin/sh"]
 
 LABEL org.opencontainers.image.source https://gitlab.com/kutara/tooling
