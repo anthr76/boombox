@@ -13,7 +13,7 @@ include:
   - project: 'kutara/gitlab-ci-templates'
     ref: master
     file:
-      - 'templates/buildah-build.yml'
+      - 'templates/container-build.yml'
       - 'templates/semantic-release.yml'
 
 # Project specific variables
