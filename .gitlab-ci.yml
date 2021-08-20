@@ -45,6 +45,19 @@ include:
     paths:
       - build/amd64
 
+.hadolint:
+  extends: .container lint
+  parallel:
+    matrix:
+      - CONTAINERFILE_DIR:
+          - images/shim
+          - images/archlinux
+
+.trivy scan:
+  extends: .container scan
+  when: manual
+  allow_failure: true
+
 
 .deploy:
   script:
