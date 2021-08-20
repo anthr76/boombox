@@ -20,3 +20,8 @@ include:
 variables:
   CONTAINERFILE_DIR: "images/shim"
   CONTAINERFILE_NAME: "Containerfile"
+
+.trivy scan:
+  extends: .container scan
+  when: manual
+  allow_failure: true
