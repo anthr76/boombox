@@ -21,7 +21,28 @@ variables:
   CONTAINERFILE_DIR: "images/shim"
   CONTAINERFILE_NAME: "Containerfile"
 
+# Only build on amd64, make trivy optional since it's Arch.
+
+build:
+  extends: .buildah
+  parallel:
+    matrix:
+      - ARCH:
+        - amd64
+
 .trivy scan:
   extends: .container scan
   when: manual
   allow_failure: true
+
+push build:
+  extends: .push build
+  script:
+    - echo "Pushing $GL_BUILD_TAG $QUAY_BUILD_TAG using $CI_PROJECT_NAME:$CI_COMMIT"
+    - mkdir -p /run/containers/$UID/
+    - echo "$DOCKERCFG" > /run/containers/$UID/auth.json
+    - buildah manifest create $CI_PROJECT_NAME:$CI_COMMIT_SHORT_SHA
+    - buildah manifest add $CI_PROJECT_NAME:$CI_COMMIT_SHORT_SHA oci:build/amd64
+    - buildah manifest push --all -f docker $CI_PROJECT_NAME:$CI_COMMIT_SHORT_SHA docker://$GL_BUILD_TAG
+    - buildah manifest push --all $CI_PROJECT_NAME:$CI_COMMIT_SHORT_SHA oci:build/image
+    - buildah manifest push --all $CI_PROJECT_NAME:$CI_COMMIT_SHORT_SHA docker://$QUAY_BUILD_TAG
