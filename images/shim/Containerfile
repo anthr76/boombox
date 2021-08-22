@@ -33,7 +33,7 @@ RUN \
     ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/skopeo && \
     ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/buildah && \
     ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/virt-install && \
-    pacman -S --noconfirm --needed reflector base-devel git asp && \
+    pacman -S --noconfirm --needed base-devel git asp && \
     useradd -g wheel -d /home/makepkg makepkg && \
     mkdir -p /home/makepkg/{.config/pacman,.gnupg,out} && \
     echo 'MAKEFLAGS=\x22-j$(nproc)\x22' >> /home/makepkg/.config/pacman/makepkg.conf && \
