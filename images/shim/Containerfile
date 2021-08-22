@@ -1,4 +1,4 @@
-FROM docker.io/library/archlinux@sha256:339ce5aad19cb7bb40cfbb171504fca2622fef754282ceb8f945b60b2fb7b728
+FROM docker.io/library/archlinux@sha256:59daef84bf56114afdf0b65b53b851b0fb4a89f2a0ebd6139fc0d41f8e4788a1
 
 ENV NAME=archlinux-toolbox VERSION=base
 LABEL com.github.containers.toolbox="true" \
@@ -52,6 +52,10 @@ RUN \
     mkdir /root && \
     chmod -R 777 /root && \
     pacman -Scc --noconfirm"
+
+# Copy opionated config at the end to reduce on size -- https://github.com/containers/toolbox/pull/861#issuecomment-903122837
+COPY pacman.conf /etc/pacman.conf
+COPY mirrorupgrade.hook /etc/pacman.d/hooks/mirrorupgrade.hook
 
 CMD ["/bin/sh"]
 
