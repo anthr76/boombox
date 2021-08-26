@@ -33,6 +33,8 @@ RUN \
     ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/skopeo && \
     ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/buildah && \
     ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/virt-install && \
+    ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/ostree && \
+    ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/rpm-ostree && \
     pacman -S --noconfirm --needed base-devel git asp && \
     useradd -g wheel -d /home/makepkg makepkg && \
     mkdir -p /home/makepkg/{.config/pacman,.gnupg,out} && \
