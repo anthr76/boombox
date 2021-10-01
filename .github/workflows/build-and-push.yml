@@ -3,11 +3,8 @@
 name: toolbox-build-and-push
 on:
   push:
-    branches:
-      - main
-    paths:
-      - 'images/shim/**'
-      - '.github/workflows/toolbox.yaml'
+    tags:
+      - '**'
 
 jobs:
   build:
@@ -31,21 +28,21 @@ jobs:
     - name: get Git short Hash
       run: echo "SHORT_SHA=${GITHUB_SHA::8}" >> $GITHUB_ENV
     
-    - name: setup Multi-Arch builds
+    - name: setup multi-arch builds
       run: sudo podman run --rm --privileged multiarch/qemu-user-static --reset -p yes
 
     - name: build Image
       id: build-image
       uses: redhat-actions/buildah-build@v2.3
       with:
-        image: toolbox
+        image: tooling
         tags: ${{ env.SHORT_SHA }} latest
         oci: true
         arch: ${{ matrix.arch }}
         context: images/shim
         dockerfiles: ./images/shim/Containerfile
     
-    - name: Push to GHCR
+    - name: push to ghcr
       id: push-to-ghcr
       uses: redhat-actions/push-to-registry@v2.1.1
       with:
@@ -55,8 +52,5 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.CR_TOKEN }}
 
-    - name: Use the image
+    - name: use the image
       run: echo "New image has been pushed to ${{ steps.push-to-ghcr.outputs.registry-paths }}"
-      paths:
-        - 'images/shim/**'
-        - '.github/workflows/toolbox.yaml'
