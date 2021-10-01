@@ -3,7 +3,7 @@
 name: toolbox-build-and-push
 on:
   release:
-    types: [published]
+    types: [released]
 
 jobs:
   build:
