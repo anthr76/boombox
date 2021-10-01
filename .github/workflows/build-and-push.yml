@@ -2,8 +2,12 @@
 
 name: toolbox-build-and-push
 on:
-  release:
-    types: ['*']
+  pull_request:
+  push:
+    branches:
+      - main
+    tags:
+      - "**"
 
 jobs:
   build:
