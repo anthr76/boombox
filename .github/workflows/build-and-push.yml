@@ -1,0 +1,62 @@
+# ---
+
+# name: toolbox-build-and-push
+# on:
+#   push:
+#     branches:
+#       - main
+#     paths:
+#       - 'images/shim/**'
+#       - '.github/workflows/toolbox.yaml'
+
+# jobs:
+#   build:
+#     name: Build and push shim image
+#     runs-on: ubuntu-20.04
+#     strategy:
+#       fail-fast: false
+#       matrix:
+#         arch: [ amd64, arm64v8 ]
+
+#     steps:
+#     - uses: actions/checkout@v2
+#       with:
+#         submodules: 'true'
+
+#     - run: |
+#        sudo apt-get install fuse-overlayfs
+#        mkdir -vp ~/.config/containers
+#        printf "[storage.options]\nmount_program=\"/usr/bin/fuse-overlayfs\"" > ~/.config/containers/storage.conf
+
+#     - name: get Git short Hash
+#       run: echo "SHORT_SHA=${GITHUB_SHA::8}" >> $GITHUB_ENV
+    
+#     - name: setup Multi-Arch builds
+#       run: sudo podman run --rm --privileged multiarch/qemu-user-static --reset -p yes
+
+#     - name: build Image
+#       id: build-image
+#       uses: redhat-actions/buildah-build@v2.3
+#       with:
+#         image: toolbox
+#         tags: ${{ env.SHORT_SHA }} latest
+#         oci: true
+#         arch: ${{ matrix.arch }}
+#         context: images/shim
+#         dockerfiles: ./images/shim/Containerfile
+    
+#     - name: Push to GHCR
+#       id: push-to-ghcr
+#       uses: redhat-actions/push-to-registry@v2.1.1
+#       with:
+#         image: ${{ steps.build-image.outputs.image }}
+#         tags:  ${{ steps.build-image.outputs.tags }}
+#         registry: ghcr.io/${{ github.actor }}
+#         username: ${{ github.actor }}
+#         password: ${{ secrets.CR_TOKEN }}
+
+#     - name: Use the image
+#       run: echo "New image has been pushed to ${{ steps.push-to-ghcr.outputs.registry-paths }}"
+#       paths:
+#         - 'images/shim/**'
+#         - '.github/workflows/toolbox.yaml'
