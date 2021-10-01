@@ -1,20 +1,15 @@
 ---
 verifyConditions:
-  - "@semantic-release/gitlab"
+  - "@semantic-release/github"
 prepare: false
 publish:
-  - "@semantic-release/gitlab"
+  - "@semantic-release/github"
 success: false
 fail: false
 npmPublish: false
 branches:
-  # release
-  - "master"
-  # maintenance
-  - "^maint-[0-9]*-([a-z][a-z0-9]*)(-[a-z0-9]+)*"
-  - name: "development"
-    prerelease: "development"
+  - "main"
 plugins:
   - "@semantic-release/commit-analyzer"
   - "@semantic-release/release-notes-generator"
-  - "@semantic-release/gitlab"
+  - "@semantic-release/github"
