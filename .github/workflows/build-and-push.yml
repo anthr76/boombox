@@ -2,9 +2,8 @@
 
 name: toolbox-build-and-push
 on:
-  push:
-    tags:
-      - '**'
+  release:
+    types: [published]
 
 jobs:
   build:
