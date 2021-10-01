@@ -32,7 +32,7 @@ jobs:
 
     - name: build Image
       id: build-image
-      uses: redhat-actions/buildah-build@v2.3
+      uses: redhat-actions/buildah-build@v2.7
       with:
         image: tooling
         tags: ${{ GITHUB_REF }} latest
