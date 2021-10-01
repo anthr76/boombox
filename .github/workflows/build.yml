@@ -1,6 +1,8 @@
 ---
 
-name: toolbox-build
+name: toolbox
+on:
+  push:
 
 jobs:
   build:
