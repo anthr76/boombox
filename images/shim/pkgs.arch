@@ -11,11 +11,10 @@ go
 python-pre-commit
 github-cli
 terraform
-flatpak-xdg-utils
 rpmlint
 gnome-keyring
 yamllint
-taskfile-git
+gotask-taskfile-bin
 shellcheck
 tmux
 sops
@@ -32,3 +31,9 @@ p7zip
 croc
 kubie-bin
 python-dnspython
+molecule
+dog
+molecule-docker
+molecule-podman
+cloud-nuke
+

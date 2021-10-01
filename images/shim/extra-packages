@@ -1,12 +1,13 @@
 bash-completion
 diffutils
+flatpak-xdg-utils
 git
 gnupg
 keyutils
 lsof
 man-db
 man-pages
-plocate
+mlocate
 mtr
 nss-mdns
 openssh
@@ -18,7 +19,9 @@ time
 traceroute
 tree
 unzip
+vte-common
 wget
 words
 xorg-xauth
 zip
+reflector
