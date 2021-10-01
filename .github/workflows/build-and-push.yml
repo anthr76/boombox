@@ -37,7 +37,7 @@ jobs:
       uses: redhat-actions/buildah-build@v2.7
       with:
         image: tooling
-        tags: ${{ GITHUB_REF }} latest
+        tags: ${{ env.GITHUB_REF }} latest
         oci: true
         arch: ${{ matrix.arch }}
         context: images/shim
