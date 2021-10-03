@@ -27,8 +27,8 @@ jobs:
        mkdir -vp ~/.config/containers
        printf "[storage.options]\nmount_program=\"/usr/bin/fuse-overlayfs\"" > ~/.config/containers/storage.conf
 
-    - name: get git short hash
-      run: echo "SHORT_SHA=${GITHUB_SHA::8}" >> $GITHUB_ENV
+    - name: get git tag
+      run: echo "TAG=${GITHUB_REF##*/}" >> $GITHUB_ENV
     
     - name: setup multi-arch builds
       run: sudo podman run --rm --privileged multiarch/qemu-user-static --reset -p yes
@@ -38,11 +38,12 @@ jobs:
       uses: redhat-actions/buildah-build@v2.7
       with:
         image: tooling
-        tags: ${{ env.GITHUB_REF }} latest
+        tags: ${{ env.TAG }} latest
         oci: true
         arch: ${{ matrix.arch }}
         context: images/shim
-        dockerfiles: ./images/shim/Containerfile
+        build-args: VERSION=${{ env.TAG }}
+        containerfiles: ./images/shim/Containerfile
     
     - name: push to ghcr
       id: push-to-ghcr

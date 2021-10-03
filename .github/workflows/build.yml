@@ -6,7 +6,7 @@ on:
     tags-ignore:
       - '**'
     branches:
-      - main
+      - '**'
   pull_request:
     branches:
       - main
@@ -47,5 +47,6 @@ jobs:
         oci: true
         arch: ${{ matrix.arch }}
         context: images/shim
-        dockerfiles: ./images/shim/Containerfile
+        build-args: VERSION=${{ env.SHORT_SHA }}
+        containerfiles: ./images/shim/Containerfile
 
