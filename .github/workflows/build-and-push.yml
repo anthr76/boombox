@@ -42,7 +42,8 @@ jobs:
         oci: true
         arch: ${{ matrix.arch }}
         context: images/shim
-        dockerfiles: ./images/shim/Containerfile
+        build-args: VERSION=${{ env.TAG }}
+        containerfiles: ./images/shim/Containerfile
     
     - name: push to ghcr
       id: push-to-ghcr

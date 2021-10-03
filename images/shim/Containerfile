@@ -1,9 +1,9 @@
 FROM docker.io/library/archlinux@sha256:5731615d9dd521f86bf75c0f092ea322e58e793e95541c7b7d5a9c43fd9c21f0
 
-ENV NAME=archlinux-toolbox VERSION=base
+ENV NAME=archlinux-toolbox
 LABEL com.github.containers.toolbox="true" \
       com.github.debarshiray.toolbox="true" \
-      name="$NAME" \
+      name="archlinux-toolbox" \
       version="$VERSION" \
       usage="This image is meant to be used with the toolbox command" \
       summary="You should not use this container and instead use your own customizations on a fork" \
