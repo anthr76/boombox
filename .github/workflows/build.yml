@@ -47,6 +47,6 @@ jobs:
         oci: true
         arch: ${{ matrix.arch }}
         context: images/shim
-        build-args: VERSION=${{ env.TAG }}
+        build-args: VERSION=${{ env.SHORT_SHA }}
         containerfiles: ./images/shim/Containerfile
 
