@@ -3,11 +3,14 @@
 name: toolbox build
 on:
   push:
+    tags-ignore:
+      - '**'
     branches:
       - main
   pull_request:
     branches:
       - main
+
 
 jobs:
   build:
@@ -16,7 +19,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        arch: [ amd64, arm64v8 ]
+        arch: [ amd64 ]
+        # arch currently only published x86. Since other arch's is not needed we won't build our own.
 
     steps:
     - uses: actions/checkout@v2

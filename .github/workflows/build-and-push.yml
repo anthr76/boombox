@@ -9,12 +9,13 @@ on:
 
 jobs:
   build:
-    name: Build and push shim image
+    name: build and push toolbox
     runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
       matrix:
-        arch: [ amd64, arm64v8 ]
+        arch: [ amd64 ]
+        # arch currently only published x86. Since other arch's is not needed we won't build our own.
 
     steps:
     - uses: actions/checkout@v2
@@ -26,7 +27,7 @@ jobs:
        mkdir -vp ~/.config/containers
        printf "[storage.options]\nmount_program=\"/usr/bin/fuse-overlayfs\"" > ~/.config/containers/storage.conf
 
-    - name: get Git short Hash
+    - name: get git short hash
       run: echo "SHORT_SHA=${GITHUB_SHA::8}" >> $GITHUB_ENV
     
     - name: setup multi-arch builds
