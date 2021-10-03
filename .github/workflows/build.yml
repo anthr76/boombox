@@ -6,7 +6,7 @@ on:
     tags-ignore:
       - '**'
     branches:
-      - main
+      - '**'
   pull_request:
     branches:
       - main
