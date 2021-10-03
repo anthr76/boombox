@@ -61,4 +61,4 @@ COPY mirrorupgrade.hook /etc/pacman.d/hooks/mirrorupgrade.hook
 
 CMD ["/bin/sh"]
 
-LABEL org.opencontainers.image.source https://gitlab.com/kutara/tooling
+LABEL org.opencontainers.image.source = &quot;https://github.com/anthr76/tooling
