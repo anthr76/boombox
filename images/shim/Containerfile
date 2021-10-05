@@ -1,4 +1,4 @@
-FROM docker.io/library/archlinux@sha256:5731615d9dd521f86bf75c0f092ea322e58e793e95541c7b7d5a9c43fd9c21f0
+FROM docker.io/library/archlinux@sha256:bfea13060936b76221aae038ff35e1f1744632096ad4686ea34fce31ee758ab7
 
 ARG VERSION
 
