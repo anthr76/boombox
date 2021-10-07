@@ -141,7 +141,7 @@ RUN \
 # nodejs
 COPY package*.json .
 RUN \
-  npm ci --only=production \
+  npm install --only=production \
   && markdownlint --version \
   && prettier --version
 
