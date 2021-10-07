@@ -7,7 +7,7 @@
 ***
 ***
 *** To avoid retyping too much info. Do a search and replace for the following:
-*** anthr76, tooling, anthonyrabbito, hello@anthonyrabbito.com, Personal DevOps Tooling, project_description
+*** anthr76, tooling, anthonyrabbito, hello@anthonyrabbito.com, Personal DevOps Tooling,boombox, project_description
 -->
 
 
@@ -31,23 +31,23 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/anthr76/tooling">
+  <a href="https://github.com/anthr76/boombox">
     <img src="https://pixy.org/src/16/160904.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Tooling</h3>
+  <h3 align="center">BoomBox</h3>
 
   <p align="center">
     Personal portable developer operations container. PPDOC
     <br />
-    <a href="https://github.com/anthr76/tooling/docs"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/anthr76/boombox/docs"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/anthr76/tooling">View Demo</a>
+    <a href="https://github.com/anthr76/boombox">View Demo</a>
     ·
-    <a href="https://github.com/anthr76/tooling/issues">Report Bug</a>
+    <a href="https://github.com/anthr76/bombox/issues">Report Bug</a>
     ·
-    <a href="https://github.com/anthr76/tooling/issues">Request Feature</a>
+    <a href="https://github.com/anthr76/boombox/issues">Request Feature</a>
   </p>
 </p>
 
@@ -112,7 +112,7 @@ You'll need toolbox, and podman installed
 
 1. Clone or fork the repo
    ```sh
-   git clone https://github.com/anthr76/tooling.git
+   git clone https://github.com/anthr76/boombox.git
    ```
 2. Make your desired ansible changes or provision the *shim* image how you like
    ```sh
@@ -133,7 +133,7 @@ _For more examples, please refer to the [Upstream Documentation](https://github.
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/anthr76/tooling/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/anthr76/boombox/issues) for a list of proposed features (and known issues).
 
 
 
@@ -162,7 +162,7 @@ Distributed under the ASL 2.0 License. See `LICENSE` for more information.
 
 Anthony Rabbito - [@anthonyrabbito](https://twitter.com/anthonyrabbito) - hello@anthonyrabbito.com
 
-[https://github.com/anthr76/tooling](https://github.com/anthr76/tooling)
+[https://github.com/anthr76/boombox](https://github.com/anthr76/boombox)
 
 
 
@@ -177,13 +177,13 @@ Anthony Rabbito - [@anthonyrabbito](https://twitter.com/anthonyrabbito) - hello@
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/anthr76/tooling.svg?style=for-the-badge
-[contributors-url]: https://github.com/anthr76/tooling/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/anthr76/tooling.svg?style=for-the-badge
-[forks-url]: https://github.com/anthr76/tooling/network/members
-[stars-shield]: https://img.shields.io/github/stars/anthr76/tooling.svg?style=for-the-badge
-[stars-url]: https://github.com/anthr76/tooling/stargazers
-[issues-shield]: https://img.shields.io/github/issues/anthr76/tooling.svg?style=for-the-badge
-[issues-url]: https://github.com/anthr76/tooling/issues
-[license-shield]: https://img.shields.io/github/license/anthr76/tooling.svg?style=for-the-badge
-[license-url]: https://github.com/anthr76/tooling/blob/master/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/anthr76/boombox.svg?style=for-the-badge
+[contributors-url]: https://github.com/anthr76/boombox/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/anthr76/boombox.svg?style=for-the-badge
+[forks-url]: https://github.com/anthr76/boombox/network/members
+[stars-shield]: https://img.shields.io/github/stars/anthr76/boombox.svg?style=for-the-badge
+[stars-url]: https://github.com/anthr76/boombox/stargazers
+[issues-shield]: https://img.shields.io/github/issues/anthr76/boombox.svg?style=for-the-badge
+[issues-url]: https://github.com/anthr76/boombox/issues
+[license-shield]: https://img.shields.io/github/license/anthr76/boombox.svg?style=for-the-badge
+[license-url]: https://github.com/anthr76/boombox/blob/master/LICENSE
