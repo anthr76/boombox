@@ -43,14 +43,16 @@ RUN \
   && ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/ostree \
   && ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/rpm-ostree
 
-# renovate: datasource=repology depName=fedora_35
+# renovate: datasource=repology depName=fedora_35/fish
 ENV FISH_VERSION=3.3.1
-# renovate: datasource=repology depName=fedora_35
+# renovate: datasource=repology depName=fedora_35/golang
 ENV GO_VERSION=1.16.8
-# renovate: datasource=repology depName=fedora_35
+# renovate: datasource=repology depName=fedora_35/nodejs
 ENV NODE_VERSION=16.10.0
-# renovate: datasource=repology depName=fedora_35
+# renovate: datasource=repology depName=fedora_35/npm
 ENV NPM_VERSION=7.24.0
+# renovate: datasource=repology depName=fedora_35/rust
+ENV RUST_VERSION=1.55.0
 
 RUN \
   dnf install -y \
@@ -113,6 +115,7 @@ RUN \
     python-six \
     rpm \
     rsync \
+    rust-${RUST_VERSION} \
     sed \
     shadow-utils \
     sudo \
@@ -142,6 +145,7 @@ RUN \
 COPY package*.json .
 RUN \
   npm install --only=production \
+  && bw --version \
   && markdownlint --version \
   && prettier --version
 
