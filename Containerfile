@@ -104,6 +104,7 @@ RUN \
     pam \
     passwd \
     pigz \
+    pinentry \
     procps-ng \
     python \
     python-devel \
