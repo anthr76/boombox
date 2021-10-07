@@ -1,9 +1,63 @@
 {
-  "extends": [
-    "config:base",
-    ":gitSignOff"
+  "enabled": true,
+  "timezone": "America/New_York",
+  "semanticCommits": "enabled",
+  "dependencyDashboard": true,
+  "dependencyDashboardTitle": "Renovate Dashboard 🤖",
+  "commitBody": "Signed-off-by: Devin Buhl <onedr0p@users.noreply.github.com>",
+  "suppressNotifications": ["prIgnoreNotification"],
+  "commitMessageTopic": "{{depName}}",
+  "commitMessageExtra": "to {{newVersion}}",
+  "commitMessageSuffix": "",
+  "regexManagers": [
+    {
+      "fileMatch": [
+        "Containerfile",
+        "hack/.+\\.sh$"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\n.*?_VERSION=(?<currentValue>.*)"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+    }
   ],
-  "dockerfile": {
-    "fileMatch": ['(^|/|\\.)Containerfile$', '(^|/)Containerfile\\.[^/]*$']
-  }
+  "packageRules": [
+    // setup datasources
+    {
+      "enabled": true,
+      "matchDatasources": ["docker", "github-releases", "pypi", "npm", "repology"],
+      "matchUpdateTypes": ["major", "minor", "patch"],
+    },
+    {
+      "matchDatasources": ["docker", "github-releases", "pypi", "npm", "repology"],
+      "semanticCommitScope": "deps",
+      "separateMinorPatch": true
+    },
+    // add labels according to package and update types
+    {
+      "matchDatasources": ["docker", "github-releases", "pypi", "npm", "repology"],
+      "matchUpdateTypes": ["major"],
+      "commitMessagePrefix": "feat(deps): ",
+      "labels": ["dep/major"]
+    },
+    {
+      "matchDatasources": ["docker", "github-releases", "pypi", "npm", "repology"],
+      "matchUpdateTypes": ["minor"],
+      "semanticCommitType": "feat",
+      "labels": ["dep/minor"]
+    },
+    {
+      "matchDatasources": ["docker", "github-releases", "pypi", "npm", "repology"],
+      "matchUpdateTypes": ["patch"],
+      "semanticCommitType": "fix",
+      "labels": ["dep/patch"]
+    },
+    {
+      "matchDatasources": ["docker", "github-releases", "pypi", "npm"],
+      "automerge": true,
+      "automergeType": "pr",
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchPackagePatterns": [".*"]
+    }
+  ]
 }

@@ -1,0 +1,42 @@
+name: container-release
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    if: github.event_name != 'pull_request'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Prepare
+        id: prep
+        run: |
+          echo ::set-output name=version::${GITHUB_REF##*/}
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.CR_TOKEN }}
+
+      - name: Build and Push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Containerfile
+          push: true
+          tags: |
+            ghcr.io/anthr76/boombox:v${{ steps.prep.outputs.version }}
+            ghcr.io/anthr76/boombox:latest
+          cache-from: type=registry,ref=ghcr.io/anthr76/boombox:buildcache
+          cache-to: type=registry,ref=ghcr.io/anthr76/boombox:buildcache,mode=max
