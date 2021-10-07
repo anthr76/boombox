@@ -55,6 +55,8 @@ ENV NODE_VERSION=16.10.0
 ENV NPM_VERSION=7.24.0
 # renovate: datasource=repology depName=fedora_35
 ENV TMATE_VERSION=2.4.0
+# rennovate: datasource=github-releases depName=twpayne/chezmoi
+ENV CHEZMOI_VERSION=2.6.1
 
 RUN \
   dnf install -y \
@@ -133,7 +135,8 @@ RUN \
     words \
     xorg-x11-xauth \
     xz \
-    zip
+    zip \
+    https://github.com/twpayne/chezmoi/releases/download/v${CHEZMOI_VERSION}/chezmoi-${CHEZMOI_VERSION}-x86_64.rpm
 
 # golang
 RUN \
