@@ -22,9 +22,11 @@ jobs:
           node-version: 'lts/*'
 
       - name: Install dependencies
-        run: npm ci
-      
+        working-directory: .github
+        run: npm install
+
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.CR_TOKEN }}
+        working-directory: .github
         run: npx semantic-release

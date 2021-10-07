@@ -143,8 +143,7 @@ COPY package*.json .
 RUN \
   npm ci --only=production \
   && markdownlint --version \
-  && prettier --version \
-  && semantic-release --version
+  && prettier --version
 
 # python
 COPY requirements.txt .
