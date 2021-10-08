@@ -1,4 +1,4 @@
-# dependencies
+# static binary dependencies
 FROM docker.io/alpine/helm:3.7.0 as helm
 FROM docker.io/argoproj/argocli:v3.1.13 as argo-cli
 FROM docker.io/aquasec/trivy:0.20.0 as trivy
@@ -8,7 +8,6 @@ FROM docker.io/fluxcd/flux-cli:v0.17.2 as flux
 FROM docker.io/hadolint/hadolint:v2.7.0 as hadolint
 FROM docker.io/hashicorp/terraform:1.0.8 as terraform
 FROM docker.io/jnorwood/helm-docs:v1.5.0 as helm-docs
-FROM docker.io/koalaman/shellcheck:v0.7.2 as shellcheck
 FROM docker.io/kubesec/kubesec:v2.11.4 as kubesec
 FROM docker.io/mikefarah/yq:4.13.3 as yq
 FROM docker.io/prom/alertmanager:v0.23.0 as prom-am
@@ -18,6 +17,23 @@ FROM k8s.gcr.io/kustomize/kustomize:v4.4.0 as kustomize
 
 # base image
 FROM registry.fedoraproject.org/fedora:35@sha256:b7bb22ac74a4cdad8fa64341cb2f665a5ca9301b526437fb62013457fea605b2
+
+# copy binaries from static binary dependencies
+COPY --from=argo-cli   /bin/argo                        /usr/local/bin/argo
+COPY --from=flux       /usr/local/bin/flux              /usr/local/bin/flux
+COPY --from=hadolint   /bin/hadolint                    /usr/local/bin/hadolint
+COPY --from=helm       /usr/bin/helm                    /usr/local/bin/helm
+COPY --from=helm-docs  /usr/bin/helm-docs               /usr/local/bin/helm-docs
+COPY --from=kube-score /kube-score                      /usr/local/bin/kube-score
+COPY --from=kubectl    /opt/bitnami/kubectl/bin/kubectl /usr/local/bin/kubectl
+COPY --from=kubesec    /bin/kubesec                     /usr/local/bin/kubesec
+COPY --from=kubeval    /usr/bin/kubeval                 /usr/local/bin/kubeval
+COPY --from=kustomize  /app/kustomize                   /usr/local/bin/kustomize
+COPY --from=prom       /bin/promtool                    /usr/local/bin/promtool
+COPY --from=prom-am    /bin/amtool                      /usr/local/bin/amtool
+COPY --from=terraform  /bin/terraform                   /usr/local/bin/terraform
+COPY --from=trivy      /usr/local/bin/trivy             /usr/local/bin/trivy
+COPY --from=yq         /usr/bin/yq                      /usr/local/bin/yq
 
 WORKDIR /opt/toolbox
 
@@ -43,6 +59,10 @@ RUN \
   && ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/ostree \
   && ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/rpm-ostree
 
+# renovate: datasource=repology depName=fedora_35/ansible
+ENV ANSIBLE_VERSION=2.9.26
+# renovate: datasource=repology depName=fedora_35/awscli
+ENV AWSCLI_VERSION=1.20.31
 # renovate: datasource=repology depName=fedora_35/fish
 ENV FISH_VERSION=3.3.1
 # renovate: datasource=repology depName=fedora_35/golang
@@ -57,7 +77,9 @@ ENV RUST_VERSION=1.55.0
 RUN \
   dnf install -y \
     acl \
+    ansible-${ANSIBLE_VERSION} \
     automake \
+    awscli-${AWSCLI_VERSION} \
     bash \
     bash-completion \
     bc \
@@ -118,6 +140,7 @@ RUN \
     rust-${RUST_VERSION} \
     sed \
     shadow-utils \
+    ShellCheck \
     sudo \
     systemd \
     tar \
@@ -134,9 +157,10 @@ RUN \
     words \
     xorg-x11-xauth \
     xz \
+    yamllint \
     zip \
-  --setopt install_weak_deps=False \
-  && dnf clean all -y
+  && dnf clean all -y \
+  && rm -rf /var/cache/yum
 
 # golang
 RUN \
@@ -151,35 +175,21 @@ RUN \
   && markdownlint --version \
   && prettier --version
 
-# python
-COPY requirements.txt .
-RUN \
-  pip install --no-cache-dir -r requirements.txt \
-  && \
-  aws --version \
-  && yamllint --version \
-  && ansible --version
+# # python - while some are out of date, these
+# # tools are currently installed with dnf
+# # leave this block in here in case there's 
+# # a need to install packages with pip
+# COPY requirements.txt .
+# RUN \
+#   pip install --no-cache-dir -r requirements.txt \
+#   && \
+#   aws --version \
+#   && yamllint --version \
+#   && ansible --version
 
 # github releases
 COPY hack/github-releases.sh /opt/toolbox/github-releases.sh
 RUN /opt/toolbox/github-releases.sh
-
-COPY --from=argo-cli   /bin/argo                        /usr/local/bin/argo
-COPY --from=flux       /usr/local/bin/flux              /usr/local/bin/flux
-COPY --from=hadolint   /bin/hadolint                    /usr/local/bin/hadolint
-COPY --from=helm       /usr/bin/helm                    /usr/local/bin/helm
-COPY --from=helm-docs  /usr/bin/helm-docs               /usr/local/bin/helm-docs
-COPY --from=kube-score /kube-score                      /usr/local/bin/kube-score
-COPY --from=kubectl    /opt/bitnami/kubectl/bin/kubectl /usr/local/bin/kubectl
-COPY --from=kubesec    /bin/kubesec                     /usr/local/bin/kubesec
-COPY --from=kubeval    /usr/bin/kubeval                 /usr/local/bin/kubeval
-COPY --from=kustomize  /app/kustomize                   /usr/local/bin/kustomize
-COPY --from=prom       /bin/promtool                    /usr/local/bin/promtool
-COPY --from=prom-am    /bin/amtool                      /usr/local/bin/amtool
-COPY --from=shellcheck /bin/shellcheck                  /usr/local/bin/shellcheck
-COPY --from=terraform  /bin/terraform                   /usr/local/bin/terraform
-COPY --from=trivy      /usr/local/bin/trivy             /usr/local/bin/trivy
-COPY --from=yq         /usr/bin/yq                      /usr/local/bin/yq
 
 CMD [ "/bin/sh" ]
 
