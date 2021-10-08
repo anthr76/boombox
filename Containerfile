@@ -89,8 +89,8 @@ RUN \
     ca-certificates \
     curl \
     diffutils \
-    dos2unix \
     dnf-plugins-core \
+    dos2unix \
     findutils \
     fish-${FISH_VERSION} \
     flatpak-spawn \
@@ -124,8 +124,8 @@ RUN \
     nodejs-${NODE_VERSION} \
     npm-${NPM_VERSION} \
     nss-mdns \
-    openssl \
     openssh-clients \
+    openssl \
     openssl-devel \
     p11-kit \
     pam \
@@ -145,17 +145,17 @@ RUN \
     systemd \
     tar \
     tcpdump \
+    thefuck \ 
     time \
     tmate \
     tmux \
-    thefuck \ 
     traceroute \
     tree \
     unzip \
     vte-profile \
-    wl-clipboard \
     wget \
     which \
+    wl-clipboard \
     words \
     xorg-x11-xauth \
     xz \
