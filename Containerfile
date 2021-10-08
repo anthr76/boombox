@@ -69,8 +69,6 @@ ENV GO_VERSION=1.16.8
 ENV NODE_VERSION=16.10.0
 # renovate: datasource=repology depName=fedora_35/npm
 ENV NPM_VERSION=7.24.0
-# renovate: datasource=repology depName=fedora_35/rust
-ENV RUST_VERSION=1.55.0
 RUN \
   dnf install -y \
     acl \
@@ -108,6 +106,7 @@ RUN \
     less \
     libcap \
     libffi-devel \
+    lsd \
     lsof \
     man-db \
     man-pages \
@@ -128,13 +127,10 @@ RUN \
     pinentry \
     procps-ng \
     python \
-    python-devel \
     python-pip \
-    python-setuptools \
-    python-six \
+    ripgrep \
     rpm \
     rsync \
-    rust-${RUST_VERSION} \
     sed \
     shadow-utils \
     ShellCheck \
@@ -149,6 +145,7 @@ RUN \
     tree \
     unzip \
     vte-profile \
+    wl-clipboard \
     wget \
     which \
     words \
