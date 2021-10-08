@@ -89,3 +89,25 @@ curl -fsSL "https://github.com/sachaos/viddy/releases/download/${VIDDY_VERSION}/
 mv /tmp/viddy /usr/local/bin/viddy
 test -x /usr/local/bin/viddy 2>&1 || exit 1
 rm -rf /tmp/*
+
+# renovate: datasource=github-releases depName=talos-systems/talos
+export TALOSCTL_VERSION=v0.12.3
+curl -fsSL -o /usr/local/bin/talosctl \
+    "https://github.com/talos-systems/talos/releases/download/${TALOSCTL_VERSION}/talosctl-linux-amd64"
+chmod +x /usr/local/bin/talosctl
+test -x /usr/local/bin/talosctl 2>&1 || exit 1
+
+# renovate: datasource=github-releases depName=kubernetes-sigs/cluster-api
+export CLUSTERCTL_VERSION=v0.3.17
+curl -fsSL -o /usr/local/bin/clusterctl \
+    "https://github.com/kubernetes-sigs/cluster-api/releases/download/${CLUSTERCTL_VERSION}/clusterctl-linux-amd64"
+chmod +x /usr/local/bin/clusterctl
+test -x /usr/local/bin/clusterctl 2>&1 || exit 1
+
+# renovate: datasource=github-releases depName=cilium/cilium-cli
+export CILIUMCLI_VERSION=v0.9.1
+curl -fsSL "https://github.com/cilium/cilium-cli/releases/download/${CILIUMCLI_VERSION}/cilium-linux-amd64.tar.gz" \
+    | tar xvz -f - -C /tmp
+mv /tmp/cilium /usr/local/bin/cilium
+test -x /usr/local/bin/cilium 2>&1 || exit 1
+rm -rf /tmp/*
