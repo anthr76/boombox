@@ -6,7 +6,6 @@ FROM docker.io/bitnami/kubectl:1.22.2 as kubectl
 FROM docker.io/cytopia/kubeval:0.16 as kubeval
 FROM docker.io/fluxcd/flux-cli:v0.17.2 as flux
 FROM docker.io/hadolint/hadolint:v2.7.0 as hadolint
-FROM docker.io/hashicorp/terraform:1.0.8 as terraform
 FROM docker.io/jnorwood/helm-docs:v1.5.0 as helm-docs
 FROM docker.io/kubesec/kubesec:v2.11.4 as kubesec
 FROM docker.io/mikefarah/yq:4.13.3 as yq
@@ -31,7 +30,6 @@ COPY --from=kubeval    /usr/bin/kubeval                 /usr/local/bin/kubeval
 COPY --from=kustomize  /app/kustomize                   /usr/local/bin/kustomize
 COPY --from=prom       /bin/promtool                    /usr/local/bin/promtool
 COPY --from=prom-am    /bin/amtool                      /usr/local/bin/amtool
-COPY --from=terraform  /bin/terraform                   /usr/local/bin/terraform
 COPY --from=trivy      /usr/local/bin/trivy             /usr/local/bin/trivy
 COPY --from=yq         /usr/bin/yq                      /usr/local/bin/yq
 
@@ -73,7 +71,6 @@ ENV NODE_VERSION=16.10.0
 ENV NPM_VERSION=7.24.0
 # renovate: datasource=repology depName=fedora_35/rust
 ENV RUST_VERSION=1.55.0
-
 RUN \
   dnf install -y \
     acl \
@@ -159,6 +156,17 @@ RUN \
     xz \
     yamllint \
     zip \
+  && dnf clean all -y \
+  && rm -rf /var/cache/yum
+
+# renovate: datasource=github-releases depName=hashicorp/terraform
+ENV TERRAFORM_VERSION=v1.0.8
+# renovate: datasource=repology depName=hashicorp/vault
+ENV VAULT_VERSION=v1.8.4
+COPY hack/hashicorp.repo /etc/yum.repos.d/hashicorp.repo
+RUN dnf install -y \
+    terraform-${TERRAFORM_VERSION#*v} \
+    vault-${VAULT_VERSION#*v} \
   && dnf clean all -y \
   && rm -rf /var/cache/yum
 
