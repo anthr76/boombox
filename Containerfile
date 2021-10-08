@@ -69,6 +69,12 @@ ENV GO_VERSION=1.16.8
 ENV NODE_VERSION=16.10.0
 # renovate: datasource=repology depName=fedora_35/npm
 ENV NPM_VERSION=7.24.0
+# renovate: datasource=github-releases depName=twpayne/chezmoi
+ENV CHEZMOI_VERSION=v2.6.1
+# renovate: datasource=github-releases depName=mozilla/sops
+ENV SOPS_VERSION=v3.7.1
+# renovate: datasource=github-releases depName=go-task/task
+ENV GOTASK_VERSION=v3.9.0
 RUN \
   dnf install -y \
     acl \
@@ -153,6 +159,9 @@ RUN \
     xz \
     yamllint \
     zip \
+    https://github.com/twpayne/chezmoi/releases/download/${CHEZMOI_VERSION}/chezmoi-${CHEZMOI_VERSION#*v}-x86_64.rpm \ 
+    https://github.com/mozilla/sops/releases/download/${SOPS_VERSION}/sops-${SOPS_VERSION#*v}-1.x86_64.rpm \
+    https://github.com/go-task/task/releases/download/${GOTASK_VERSION}/task_linux_amd64.rpm \ 
   && dnf clean all -y \
   && rm -rf /var/cache/yum
 
