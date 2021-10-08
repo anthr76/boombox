@@ -134,7 +134,9 @@ RUN \
     words \
     xorg-x11-xauth \
     xz \
-    zip
+    zip \
+  --setopt install_weak_deps=False \
+  && dnf clean all -y
 
 # golang
 RUN \
