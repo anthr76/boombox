@@ -161,7 +161,7 @@ RUN \
 
 # renovate: datasource=github-releases depName=hashicorp/terraform
 ENV TERRAFORM_VERSION=v1.0.8
-# renovate: datasource=repology depName=hashicorp/vault
+# renovate: datasource=github-releases depName=hashicorp/vault
 ENV VAULT_VERSION=v1.8.4
 COPY hack/hashicorp.repo /etc/yum.repos.d/hashicorp.repo
 RUN dnf install -y \
