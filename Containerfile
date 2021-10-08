@@ -95,6 +95,7 @@ RUN \
     fish-${FISH_VERSION} \
     flatpak-spawn \
     fpaste \
+    fzf \
     gawk \
     git \
     gnupg \
@@ -147,6 +148,7 @@ RUN \
     time \
     tmate \
     tmux \
+    thefuck \ 
     traceroute \
     tree \
     unzip \
