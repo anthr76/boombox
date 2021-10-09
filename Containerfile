@@ -35,8 +35,7 @@ COPY --from=yq         /usr/bin/yq                      /usr/local/bin/yq
 
 WORKDIR /opt/toolbox
 
-ENV GOPATH="/opt/toolbox/go"
-ENV PATH="$PATH:/opt/toolbox/node_modules/.bin:${GOPATH}/bin"
+ENV PATH="$PATH:/opt/toolbox/node_modules/.bin"
 
 RUN \
   sed -i '/tsflags=nodocs/d' /etc/dnf/dnf.conf \
@@ -61,6 +60,8 @@ RUN \
 ENV ANSIBLE_VERSION=2.9.26
 # renovate: datasource=repology depName=fedora_35/awscli
 ENV AWSCLI_VERSION=1.20.31
+# renovate: datasource=repology depName=fedora_35/direnv
+ENV DIRENV_VERSION=2.28.0
 # renovate: datasource=repology depName=fedora_35/fish
 ENV FISH_VERSION=3.3.1
 # renovate: datasource=repology depName=fedora_35/golang
@@ -71,10 +72,10 @@ ENV NODE_VERSION=16.10.0
 ENV NPM_VERSION=7.24.0
 # renovate: datasource=github-releases depName=twpayne/chezmoi
 ENV CHEZMOI_VERSION=v2.6.1
-# renovate: datasource=github-releases depName=mozilla/sops
-ENV SOPS_VERSION=v3.7.1
 # renovate: datasource=github-releases depName=go-task/task
 ENV GOTASK_VERSION=v3.9.0
+# renovate: datasource=github-releases depName=mozilla/sops
+ENV SOPS_VERSION=v3.7.1
 RUN \
   dnf install -y \
     acl \
@@ -89,6 +90,7 @@ RUN \
     ca-certificates \
     curl \
     diffutils \
+    direnv-${DIRENV_VERSION} \
     dnf-plugins-core \
     dos2unix \
     findutils \
@@ -180,7 +182,9 @@ RUN dnf install -y \
 
 # golang
 RUN \
-  go install github.com/drone/envsubst/cmd/envsubst@latest \
+  export GOPATH=/opt/toolbox/go \
+  && go install github.com/drone/envsubst/cmd/envsubst@latest \
+  && mv /opt/toolbox/go/bin/envsubst /usr/local/bin/envsubst \
   && envsubst --version
 
 # nodejs
