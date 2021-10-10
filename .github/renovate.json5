@@ -50,13 +50,13 @@
       "matchUpdateTypes": ["patch"],
       "semanticCommitType": "fix",
       "labels": ["dep/patch"]
-    },
-    {
-      "matchDatasources": ["docker", "github-releases", "pypi", "npm"],
-      "automerge": true,
-      "automergeType": "pr",
-      "matchUpdateTypes": ["minor", "patch"],
-      "matchPackagePatterns": [".*"]
     }
+    // {
+    //   "matchDatasources": ["docker", "github-releases", "pypi", "npm"],
+    //   "automerge": true,
+    //   "automergeType": "pr",
+    //   "matchUpdateTypes": ["minor", "patch"],
+    //   "matchPackagePatterns": [".*"]
+    // }
   ]
 }
