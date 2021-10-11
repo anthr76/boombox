@@ -62,6 +62,11 @@ ENV CHEZMOI_VERSION=v2.6.1
 ENV GOTASK_VERSION=v3.9.0
 # renovate: datasource=github-releases depName=mozilla/sops
 ENV SOPS_VERSION=v3.7.1
+# renovate: datasource=github-releases depName=hashicorp/terraform
+ENV TERRAFORM_VERSION=v1.0.8
+# renovate: datasource=github-releases depName=hashicorp/vault
+ENV VAULT_VERSION=v1.8.4
+COPY hack/hashicorp.repo /etc/yum.repos.d/hashicorp.repo
 RUN \
   dnf install -y \
     acl \
@@ -135,6 +140,7 @@ RUN \
     tar \
     tcpdump \
     thefuck \ 
+    terraform-${TERRAFORM_VERSION#*v} \
     time \
     tmate \
     tmux \
@@ -149,21 +155,11 @@ RUN \
     xorg-x11-xauth \
     xz \
     yamllint \
+    vault-${VAULT_VERSION#*v} \
     zip \
     https://github.com/twpayne/chezmoi/releases/download/${CHEZMOI_VERSION}/chezmoi-${CHEZMOI_VERSION#*v}-x86_64.rpm \ 
     https://github.com/mozilla/sops/releases/download/${SOPS_VERSION}/sops-${SOPS_VERSION#*v}-1.x86_64.rpm \
     https://github.com/go-task/task/releases/download/${GOTASK_VERSION}/task_linux_amd64.rpm \ 
-  && dnf clean all -y \
-  && rm -rf /var/cache/yum
-
-# renovate: datasource=github-releases depName=hashicorp/terraform
-ENV TERRAFORM_VERSION=v1.0.8
-# renovate: datasource=github-releases depName=hashicorp/vault
-ENV VAULT_VERSION=v1.8.4
-COPY hack/hashicorp.repo /etc/yum.repos.d/hashicorp.repo
-RUN dnf install -y \
-    terraform-${TERRAFORM_VERSION#*v} \
-    vault-${VAULT_VERSION#*v} \
   && dnf clean all -y \
   && rm -rf /var/cache/yum
 
