@@ -198,4 +198,4 @@ LABEL org.opencontainers.image.source https://github.com/anthr76/boombox \
       version="$VERSION" \
       usage="This image is meant to be used with the toolbox command" \
       summary="Fedora toolbox" \
-      maintainer="Anthony Rabbito <hello@anthonyrabbito.com>, Devin Buhl <devin.kray@gmail.com>"
+      maintainer="Anthony Rabbito <hello@anthonyrabbito.com>, Devin Buhl <devin.kray@gmail.com>, Ryan Walter <rwalt@pm.me>"
