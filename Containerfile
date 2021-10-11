@@ -56,20 +56,6 @@ RUN \
   && ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/ostree \
   && ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/rpm-ostree
 
-# renovate: datasource=repology depName=fedora_35/ansible
-ENV ANSIBLE_VERSION=2.9.26
-# renovate: datasource=repology depName=fedora_35/awscli
-ENV AWSCLI_VERSION=1.20.31
-# renovate: datasource=repology depName=fedora_35/direnv
-ENV DIRENV_VERSION=2.28.0
-# renovate: datasource=repology depName=fedora_35/fish
-ENV FISH_VERSION=3.3.1
-# renovate: datasource=repology depName=fedora_35/golang
-ENV GO_VERSION=1.16.8
-# renovate: datasource=repology depName=fedora_35/nodejs
-ENV NODE_VERSION=16.10.0
-# renovate: datasource=repology depName=fedora_35/npm
-ENV NPM_VERSION=7.24.0
 # renovate: datasource=github-releases depName=twpayne/chezmoi
 ENV CHEZMOI_VERSION=v2.6.1
 # renovate: datasource=github-releases depName=go-task/task
@@ -79,9 +65,8 @@ ENV SOPS_VERSION=v3.7.1
 RUN \
   dnf install -y \
     acl \
-    ansible-${ANSIBLE_VERSION} \
     automake \
-    awscli-${AWSCLI_VERSION} \
+    awscli-1.20.31 \
     bash \
     bash-completion \
     bc \
@@ -90,11 +75,11 @@ RUN \
     ca-certificates \
     curl \
     diffutils \
-    direnv-${DIRENV_VERSION} \
+    direnv-2.28.0 \
     dnf-plugins-core \
     dos2unix \
     findutils \
-    fish-${FISH_VERSION} \
+    fish-3.3.1 \
     flatpak-spawn \
     fpaste \
     fzf \
@@ -102,7 +87,7 @@ RUN \
     git \
     gnupg \
     gnupg2-smime \
-    golang-${GO_VERSION} \
+    golang-1.16.8 \
     grep \
     gvfs-client \
     gzip \
@@ -123,8 +108,8 @@ RUN \
     mtr \
     nano-default-editor \
     neovim \
-    nodejs-${NODE_VERSION} \
-    npm-${NPM_VERSION} \
+    nodejs-16.10.0 \
+    npm-7.24.0 \
     nss-mdns \
     openssh-clients \
     openssl \
@@ -136,7 +121,9 @@ RUN \
     pinentry \
     procps-ng \
     python \
+    python-devel \
     python-pip \
+    python-six \
     ripgrep \
     rpm \
     rsync \
@@ -195,17 +182,11 @@ RUN \
   && markdownlint --version \
   && prettier --version
 
-# # python - while some are out of date, these
-# # tools are currently installed with dnf
-# # leave this block in here in case there's 
-# # a need to install packages with pip
-# COPY requirements.txt .
-# RUN \
-#   pip install --no-cache-dir -r requirements.txt \
-#   && \
-#   aws --version \
-#   && yamllint --version \
-#   && ansible --version
+# python
+COPY requirements.txt .
+RUN \
+  pip install --no-cache-dir -r requirements.txt \
+  && ansible --version
 
 # github releases
 COPY hack/github-releases.sh /opt/toolbox/github-releases.sh
