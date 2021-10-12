@@ -59,7 +59,7 @@ RUN \
   && ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/rpm-ostree
 
 # renovate: datasource=github-releases depName=twpayne/chezmoi
-ENV CHEZMOI_VERSION=v2.6.1
+ENV CHEZMOI_VERSION=v2.7.0
 # renovate: datasource=github-releases depName=go-task/task
 ENV GOTASK_VERSION=v3.9.0
 # renovate: datasource=github-releases depName=mozilla/sops
