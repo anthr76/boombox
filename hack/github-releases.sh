@@ -67,7 +67,7 @@ test -x /usr/local/bin/viddy 2>&1 || exit 1
 rm -rf /tmp/*
 
 # renovate: datasource=github-releases depName=talos-systems/talos
-export TALOSCTL_VERSION=v0.12.3
+export TALOSCTL_VERSION=v0.13.0
 curl -fsSL -o /usr/local/bin/talosctl \
     "https://github.com/talos-systems/talos/releases/download/${TALOSCTL_VERSION}/talosctl-linux-amd64"
 chmod +x /usr/local/bin/talosctl
