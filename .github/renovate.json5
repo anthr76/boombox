@@ -8,6 +8,9 @@
   "commitMessageTopic": "{{depName}}",
   "commitMessageExtra": "to {{newVersion}}",
   "commitMessageSuffix": "",
+  "docker": {
+    "fileMatch": ["Containerfile"]
+  },
   "regexManagers": [
     {
       "fileMatch": [
