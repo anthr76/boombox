@@ -140,6 +140,7 @@ RUN \
     tar \
     tcpdump \
     thefuck \ 
+    pre-commit \
     terraform-${TERRAFORM_VERSION#*v} \
     time \
     tmate \
