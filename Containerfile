@@ -8,7 +8,7 @@ FROM docker.io/fluxcd/flux-cli:v0.17.2 as flux
 FROM docker.io/hadolint/hadolint:v2.7.0 as hadolint
 FROM docker.io/jnorwood/helm-docs:v1.5.0 as helm-docs
 FROM docker.io/kubesec/kubesec:v2.11.4 as kubesec
-FROM docker.io/mikefarah/yq:4.13.3 as yq
+FROM docker.io/mikefarah/yq:4.13.4 as yq
 FROM docker.io/prom/alertmanager:v0.23.0 as prom-am
 FROM docker.io/prom/prometheus:v2.30.3 as prom
 FROM docker.io/zegl/kube-score:v1.12.0 as kube-score
