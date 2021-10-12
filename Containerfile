@@ -1,6 +1,6 @@
 # static binary dependencies
 FROM docker.io/alpine/helm:3.7.0 as helm
-FROM docker.io/argoproj/argocli:v3.1.13 as argo-cli
+FROM docker.io/argoproj/argocli:v3.2.0 as argo-cli
 FROM docker.io/aquasec/trivy:0.20.0 as trivy
 FROM docker.io/bitnami/kubectl:1.22.2 as kubectl
 FROM docker.io/cytopia/kubeval:0.16 as kubeval
