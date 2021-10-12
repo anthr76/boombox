@@ -53,13 +53,14 @@
       "matchUpdateTypes": ["patch"],
       "semanticCommitType": "fix",
       "labels": ["dep/patch"]
-    }
-    // {
-    //   "matchDatasources": ["docker", "github-releases", "pypi", "npm"],
-    //   "automerge": true,
-    //   "automergeType": "pr",
-    //   "matchUpdateTypes": ["minor", "patch"],
-    //   "matchPackagePatterns": [".*"]
-    // }
+    },
+    // pin package versions
+    {
+      "matchDatasources": ["docker"],
+      "allowedVersions": "<36",
+      "matchPackageNames": [
+        "registry.fedoraproject.org/fedora"
+      ]
+    },
   ]
 }
