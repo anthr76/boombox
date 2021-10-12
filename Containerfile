@@ -9,6 +9,7 @@ FROM docker.io/hadolint/hadolint:v2.7.0 as hadolint
 FROM docker.io/jnorwood/helm-docs:v1.5.0 as helm-docs
 FROM docker.io/kubesec/kubesec:v2.11.4 as kubesec
 FROM docker.io/mikefarah/yq:4.13.3 as yq
+FROM docker.io/minio/mc:RELEASE.2021-10-07T04-19-58Z as minio-mc
 FROM docker.io/prom/alertmanager:v0.23.0 as prom-am
 FROM docker.io/prom/prometheus:v2.30.3 as prom
 FROM docker.io/zegl/kube-score:v1.12.0 as kube-score
@@ -28,6 +29,7 @@ COPY --from=kubectl    /opt/bitnami/kubectl/bin/kubectl /usr/local/bin/kubectl
 COPY --from=kubesec    /bin/kubesec                     /usr/local/bin/kubesec
 COPY --from=kubeval    /usr/bin/kubeval                 /usr/local/bin/kubeval
 COPY --from=kustomize  /app/kustomize                   /usr/local/bin/kustomize
+COPY --from=minio-mc   /usr/bin/mc                      /usr/local/bin/mc
 COPY --from=prom       /bin/promtool                    /usr/local/bin/promtool
 COPY --from=prom-am    /bin/amtool                      /usr/local/bin/amtool
 COPY --from=trivy      /usr/local/bin/trivy             /usr/local/bin/trivy
