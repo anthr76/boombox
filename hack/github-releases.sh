@@ -95,3 +95,12 @@ curl -fsSL "https://github.com/itchyny/gojq/releases/download/${GOJQ_VERSION}/go
 mv /tmp/gojq /usr/local/bin/gojq
 test -x /usr/local/bin/gojq 2>&1 || exit 1
 rm -rf /tmp/*
+
+# renovate: datasource=github-releases depName=ogham/dog
+export DOG_VERSION=v0.1.0
+curl -fsSL -o /tmp/dog.zip "https://github.com/ogham/dog/releases/download/${DOG_VERSION}/dog-${DOG_VERSION}-x86_64-unknown-linux-gnu.zip"
+unzip -j -o -d /tmp /tmp/dog.zip
+mv /tmp/dog /usr/local/bin/dog
+chmod +x /usr/local/bin/dog
+test -x /usr/local/bin/dog 2>&1 || exit 1
+rm -rf /tmp/*
