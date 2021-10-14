@@ -170,8 +170,8 @@ RUN \
 RUN \
   export GOPATH=/opt/toolbox/go \
   && go install github.com/drone/envsubst/cmd/envsubst@latest \
-  && mv /opt/toolbox/go/bin/envsubst /usr/local/bin/envsubst \
-  && envsubst --version
+    && mv /opt/toolbox/go/bin/envsubst /usr/local/bin/envsubst \
+    && envsubst --version
 
 # nodejs
 COPY package*.json .
