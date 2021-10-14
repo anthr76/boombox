@@ -16,7 +16,7 @@ FROM docker.io/zegl/kube-score:v1.12.0 as kube-score
 FROM k8s.gcr.io/kustomize/kustomize:v4.4.0 as kustomize
 
 # base image
-FROM registry.fedoraproject.org/fedora:35@sha256:caf898842db03301682f9df2a3c5e163fa6b53e05c183eff593d136fe8a31dc0
+FROM registry.fedoraproject.org/fedora:35@sha256:dd84c6388b4b7eec1e83905518b6dac643985d491de436d171c98585eb76897e
 
 # copy binaries from static binary dependencies
 COPY --from=argo-cli   /bin/argo                        /usr/local/bin/argo
