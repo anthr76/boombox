@@ -13,6 +13,7 @@ FROM docker.io/minio/mc:RELEASE.2021-10-07T04-19-58Z as minio-mc
 FROM docker.io/prom/alertmanager:v0.23.0 as prom-am
 FROM docker.io/prom/prometheus:v2.30.3 as prom
 FROM docker.io/zegl/kube-score:v1.12.0 as kube-score
+FROM docker.io/drwetter/testssl.sh:3.0 as testssl
 FROM k8s.gcr.io/kustomize/kustomize:v4.4.0 as kustomize
 
 # base image
@@ -34,15 +35,19 @@ COPY --from=prom       /bin/promtool                    /usr/local/bin/promtool
 COPY --from=prom-am    /bin/amtool                      /usr/local/bin/amtool
 COPY --from=trivy      /usr/local/bin/trivy             /usr/local/bin/trivy
 COPY --from=yq         /usr/bin/yq                      /usr/local/bin/yq
+COPY --from=testssl    /home/testssl/                   /usr/local/bin/testssl/
 
 WORKDIR /opt/toolbox
 
-ENV PATH="$PATH:/opt/toolbox/node_modules/.bin"
+ENV PATH="$PATH:/opt/toolbox/node_modules/.bin:/usr/local/bin/testssl/" \
+    TESTSSL_INSTALL_DIR="/usr/local/bin/testssl/"
 
 RUN \
   sed -i '/tsflags=nodocs/d' /etc/dnf/dnf.conf \
   && echo "installonly_limit=15" | tee -a /etc/dnf/dnf.conf \
-  && echo "max_parallel_downloads=20" | tee -a /etc/dnf/dnf.conf
+  && echo "max_parallel_downloads=20" | tee -a /etc/dnf/dnf.conf \
+  && echo "LANG=en_US.utf-8" | tee -a /etc/environment \
+  && echo "LC_ALL=en_US.utf-8" | tee -a /etc/environment
 
 COPY hack/host-runner /usr/libexec/toolbox/host-runner
 COPY hack/podman-host.sh /usr/libexec/toolbox/podman-host.sh
@@ -79,6 +84,7 @@ RUN \
     bc \
     below \
     bzip2 \
+    bind-utils \
     ca-certificates \
     curl \
     diffutils \
@@ -201,4 +207,4 @@ LABEL org.opencontainers.image.source https://github.com/anthr76/boombox \
       version="$VERSION" \
       usage="This image is meant to be used with the toolbox command" \
       summary="Fedora toolbox" \
-      maintainer="Anthony Rabbito <hello@anthonyrabbito.com>, Devin Buhl <devin.kray@gmail.com>, Ryan Walter <rwalt@pm.me>"
+      maintainer="Anthony Rabbito <hello@anthonyrabbito.com>, Devin Buhl <devin.kray@gmail.com>, Ryan Walter <rwalt@pm.me>, Stefan Crain <stefancrain@gmail.com>"
