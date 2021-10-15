@@ -1,10 +1,10 @@
 # static binary dependencies
-FROM docker.io/alpine/helm:3.7.0 as helm
+FROM docker.io/alpine/helm:3.7.1 as helm
 FROM docker.io/argoproj/argocli:v3.2.0 as argo-cli
 FROM docker.io/aquasec/trivy:0.20.0 as trivy
 FROM docker.io/bitnami/kubectl:1.22.2 as kubectl
 FROM docker.io/cytopia/kubeval:0.16 as kubeval
-FROM docker.io/fluxcd/flux-cli:v0.18.2 as flux
+FROM docker.io/fluxcd/flux-cli:v0.18.3 as flux
 FROM docker.io/hadolint/hadolint:v2.7.0 as hadolint
 FROM docker.io/jnorwood/helm-docs:v1.5.0 as helm-docs
 FROM docker.io/kubesec/kubesec:v2.11.4 as kubesec
@@ -17,7 +17,7 @@ FROM docker.io/drwetter/testssl.sh:3.0 as testssl
 FROM k8s.gcr.io/kustomize/kustomize:v4.4.0 as kustomize
 
 # base image
-FROM registry.fedoraproject.org/fedora:35@sha256:caf898842db03301682f9df2a3c5e163fa6b53e05c183eff593d136fe8a31dc0
+FROM registry.fedoraproject.org/fedora:35@sha256:b05df706d8c17773633fab810966cdc92c364e0107802ba18612292b92f26ddc
 
 # copy binaries from static binary dependencies
 COPY --from=argo-cli   /bin/argo                        /usr/local/bin/argo
@@ -69,7 +69,7 @@ ENV GOTASK_VERSION=v3.9.0
 # renovate: datasource=github-releases depName=mozilla/sops
 ENV SOPS_VERSION=v3.7.1
 # renovate: datasource=github-releases depName=hashicorp/terraform
-ENV TERRAFORM_VERSION=v1.0.8
+ENV TERRAFORM_VERSION=v1.0.9
 # renovate: datasource=github-releases depName=hashicorp/vault
 ENV VAULT_VERSION=v1.8.4
 COPY hack/hashicorp.repo /etc/yum.repos.d/hashicorp.repo
@@ -178,8 +178,8 @@ RUN \
 RUN \
   export GOPATH=/opt/toolbox/go \
   && go install github.com/drone/envsubst/cmd/envsubst@latest \
-  && mv /opt/toolbox/go/bin/envsubst /usr/local/bin/envsubst \
-  && envsubst --version
+    && mv /opt/toolbox/go/bin/envsubst /usr/local/bin/envsubst \
+    && envsubst --version
 
 # nodejs
 COPY package*.json .

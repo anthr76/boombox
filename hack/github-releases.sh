@@ -87,3 +87,20 @@ curl -fsSL "https://github.com/cilium/cilium-cli/releases/download/${CILIUMCLI_V
 mv /tmp/cilium /usr/local/bin/cilium
 test -x /usr/local/bin/cilium 2>&1 || exit 1
 rm -rf /tmp/*
+
+# renovate: datasource=github-releases depName=itchyny/gojq
+export GOJQ_VERSION=v0.12.5
+curl -fsSL "https://github.com/itchyny/gojq/releases/download/${GOJQ_VERSION}/gojq_${GOJQ_VERSION}_linux_amd64.tar.gz" \
+    | tar xvz -f - --strip-components=1 -C /tmp
+mv /tmp/gojq /usr/local/bin/gojq
+test -x /usr/local/bin/gojq 2>&1 || exit 1
+rm -rf /tmp/*
+
+# renovate: datasource=github-releases depName=ogham/dog
+export DOG_VERSION=v0.1.0
+curl -fsSL -o /tmp/dog.zip "https://github.com/ogham/dog/releases/download/${DOG_VERSION}/dog-${DOG_VERSION}-x86_64-unknown-linux-gnu.zip"
+unzip -j -o -d /tmp /tmp/dog.zip
+mv /tmp/dog /usr/local/bin/dog
+chmod +x /usr/local/bin/dog
+test -x /usr/local/bin/dog 2>&1 || exit 1
+rm -rf /tmp/*
