@@ -40,14 +40,13 @@ COPY --from=testssl    /home/testssl/                   /usr/local/bin/testssl/
 WORKDIR /opt/toolbox
 
 ENV PATH="$PATH:/opt/toolbox/node_modules/.bin:/usr/local/bin/testssl/" \
-    TESTSSL_INSTALL_DIR="/usr/local/bin/testssl/"
+    TESTSSL_INSTALL_DIR="/usr/local/bin/testssl/" \
+    LANG=en_US.UTF-8
 
 RUN \
   sed -i '/tsflags=nodocs/d' /etc/dnf/dnf.conf \
   && echo "installonly_limit=15" | tee -a /etc/dnf/dnf.conf \
-  && echo "max_parallel_downloads=20" | tee -a /etc/dnf/dnf.conf \
-  && echo "LANG=en_US.utf-8" | tee -a /etc/environment \
-  && echo "LC_ALL=en_US.utf-8" | tee -a /etc/environment
+  && echo "max_parallel_downloads=20" | tee -a /etc/dnf/dnf.conf
 
 COPY hack/host-runner /usr/libexec/toolbox/host-runner
 COPY hack/podman-host.sh /usr/libexec/toolbox/podman-host.sh
@@ -98,6 +97,8 @@ RUN \
     fzf \
     gawk \
     git \
+    glibc-locale-source \
+    glibc-langpack-en \
     gnupg \
     gnupg2-smime \
     golang-1.16.8 \
@@ -170,7 +171,8 @@ RUN \
     https://github.com/mozilla/sops/releases/download/${SOPS_VERSION}/sops-${SOPS_VERSION#*v}-1.x86_64.rpm \
     https://github.com/go-task/task/releases/download/${GOTASK_VERSION}/task_linux_amd64.rpm \ 
   && dnf clean all -y \
-  && rm -rf /var/cache/yum
+  && rm -rf /var/cache/yum \
+  && localedef --verbose --force -i en_US -f UTF-8 en_US.UTF-8 || true
 
 # golang
 RUN \
