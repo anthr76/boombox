@@ -14,6 +14,7 @@ FROM docker.io/prom/alertmanager:v0.23.0 as prom-am
 FROM docker.io/prom/prometheus:v2.30.3 as prom
 FROM docker.io/zegl/kube-score:v1.12.0 as kube-score
 FROM docker.io/drwetter/testssl.sh:3.0 as testssl
+FROM docker.io/amazon/aws-cli:2.2.46 as awscli
 FROM k8s.gcr.io/kustomize/kustomize:v4.4.0 as kustomize
 
 # base image
@@ -36,6 +37,8 @@ COPY --from=prom-am    /bin/amtool                      /usr/local/bin/amtool
 COPY --from=trivy      /usr/local/bin/trivy             /usr/local/bin/trivy
 COPY --from=yq         /usr/bin/yq                      /usr/local/bin/yq
 COPY --from=testssl    /home/testssl/                   /usr/local/bin/testssl/
+COPY --from=awscli     /usr/local/aws-cli/              /usr/local/aws-cli/
+COPY --from=awscli     /usr/local/bin/                  /usr/local/bin/
 
 WORKDIR /opt/toolbox
 
