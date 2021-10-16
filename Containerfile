@@ -66,6 +66,8 @@ RUN \
 ENV CHEZMOI_VERSION=v2.7.0
 # renovate: datasource=github-releases depName=go-task/task
 ENV GOTASK_VERSION=v3.9.0
+# renovate: datasource=github-releases depName=cli/cli
+ENV GH_VERSION=v2.1.0
 # renovate: datasource=github-releases depName=mozilla/sops
 ENV SOPS_VERSION=v3.7.1
 # renovate: datasource=github-releases depName=hashicorp/terraform
@@ -167,9 +169,10 @@ RUN \
     yamllint \
     vault-${VAULT_VERSION#*v} \
     zip \
-    https://github.com/twpayne/chezmoi/releases/download/${CHEZMOI_VERSION}/chezmoi-${CHEZMOI_VERSION#*v}-x86_64.rpm \ 
+    https://github.com/twpayne/chezmoi/releases/download/${CHEZMOI_VERSION}/chezmoi-${CHEZMOI_VERSION#*v}-x86_64.rpm \
+    https://github.com/cli/cli/releases/download/${GH_VERSION}/gh_${GH_VERSION#*v}_linux_amd64.rpm \
     https://github.com/mozilla/sops/releases/download/${SOPS_VERSION}/sops-${SOPS_VERSION#*v}-1.x86_64.rpm \
-    https://github.com/go-task/task/releases/download/${GOTASK_VERSION}/task_linux_amd64.rpm \ 
+    https://github.com/go-task/task/releases/download/${GOTASK_VERSION}/task_linux_amd64.rpm \
   && dnf clean all -y \
   && rm -rf /var/cache/yum \
   && localedef --verbose --force -i en_US -f UTF-8 en_US.UTF-8 || true
