@@ -82,7 +82,6 @@ RUN \
   dnf install -y \
     acl \
     automake \
-    awscli-1.20.31 \
     bash \
     bash-completion \
     bc \
