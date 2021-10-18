@@ -1,7 +1,7 @@
 # static binary dependencies
 FROM docker.io/alpine/helm:3.7.1 as helm
 FROM docker.io/argoproj/argocli:v3.2.0 as argo-cli
-FROM docker.io/aquasec/trivy:0.20.0 as trivy
+FROM docker.io/aquasec/trivy:0.20.1 as trivy
 FROM docker.io/bitnami/kubectl:1.22.2 as kubectl
 FROM docker.io/cytopia/kubeval:0.16 as kubeval
 FROM docker.io/fluxcd/flux-cli:v0.18.3 as flux
@@ -18,7 +18,7 @@ FROM docker.io/amazon/aws-cli:2.2.46 as awscli
 FROM k8s.gcr.io/kustomize/kustomize:v4.4.0 as kustomize
 
 # base image
-FROM registry.fedoraproject.org/fedora:35@sha256:b05df706d8c17773633fab810966cdc92c364e0107802ba18612292b92f26ddc
+FROM registry.fedoraproject.org/fedora:35@sha256:6c6f313c2d3ef52f63337f3755dc68a03cd4ab5d194753357417ebe0a6c977ef
 
 # copy binaries from static binary dependencies
 COPY --from=argo-cli   /bin/argo                        /usr/local/bin/argo
@@ -66,7 +66,7 @@ RUN \
   && ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/rpm-ostree
 
 # renovate: datasource=github-releases depName=twpayne/chezmoi
-ENV CHEZMOI_VERSION=v2.7.0
+ENV CHEZMOI_VERSION=v2.7.1
 # renovate: datasource=github-releases depName=go-task/task
 ENV GOTASK_VERSION=v3.9.0
 # renovate: datasource=github-releases depName=cli/cli
