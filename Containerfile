@@ -17,7 +17,7 @@ FROM docker.io/drwetter/testssl.sh:3.0 as testssl
 FROM k8s.gcr.io/kustomize/kustomize:v4.4.0 as kustomize
 
 # base image
-FROM registry.fedoraproject.org/fedora:35@sha256:b05df706d8c17773633fab810966cdc92c364e0107802ba18612292b92f26ddc
+FROM registry.fedoraproject.org/fedora:35@sha256:6c6f313c2d3ef52f63337f3755dc68a03cd4ab5d194753357417ebe0a6c977ef
 
 # copy binaries from static binary dependencies
 COPY --from=argo-cli   /bin/argo                        /usr/local/bin/argo
