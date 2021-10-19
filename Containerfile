@@ -54,7 +54,6 @@ RUN \
 COPY hack/host-runner /usr/libexec/toolbox/host-runner
 COPY hack/podman-host.sh /usr/libexec/toolbox/podman-host.sh
 COPY hack/01-shim.sh /etc/profile.d/01-shim.sh
-
 RUN \
   ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/flatpak \
   && ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/virsh \
@@ -203,6 +202,10 @@ RUN \
 # github releases
 COPY hack/github-releases.sh /opt/toolbox/github-releases.sh
 RUN /opt/toolbox/github-releases.sh
+
+# Add autocompletion
+COPY hack/go-autocompletion.sh /tmp/go-autocompletion.sh
+RUN sh /tmp/go-autocompletion.sh
 
 CMD [ "/bin/sh" ]
 
