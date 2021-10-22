@@ -1,10 +1,10 @@
 # static binary dependencies
 FROM docker.io/alpine/helm:3.7.1 as helm
-FROM docker.io/argoproj/argocli:v3.2.0 as argo-cli
+FROM docker.io/argoproj/argocli:v3.2.2 as argo-cli
 FROM docker.io/aquasec/trivy:0.20.1 as trivy
 FROM docker.io/bitnami/kubectl:1.22.2 as kubectl
 FROM docker.io/cytopia/kubeval:0.16 as kubeval
-FROM docker.io/fluxcd/flux-cli:v0.18.3 as flux
+FROM docker.io/fluxcd/flux-cli:v0.19.0 as flux
 FROM docker.io/hadolint/hadolint:v2.7.0 as hadolint
 FROM docker.io/jnorwood/helm-docs:v1.5.0 as helm-docs
 FROM docker.io/kubesec/kubesec:v2.11.4 as kubesec
@@ -14,11 +14,11 @@ FROM docker.io/prom/alertmanager:v0.23.0 as prom-am
 FROM docker.io/prom/prometheus:v2.30.3 as prom
 FROM docker.io/zegl/kube-score:v1.12.0 as kube-score
 FROM docker.io/drwetter/testssl.sh:3.0 as testssl
-FROM docker.io/amazon/aws-cli:2.2.47 as awscli
+FROM docker.io/amazon/aws-cli:2.3.0 as awscli
 FROM k8s.gcr.io/kustomize/kustomize:v4.4.0 as kustomize
 
 # base image
-FROM registry.fedoraproject.org/fedora:35@sha256:6c6f313c2d3ef52f63337f3755dc68a03cd4ab5d194753357417ebe0a6c977ef
+FROM registry.fedoraproject.org/fedora:35@sha256:25cf155c5b4f5430820d6c6ff7bb2bb7129fc63cce00f44deb513ba6482b2e2a
 
 # copy binaries from static binary dependencies
 COPY --from=argo-cli   /bin/argo                        /usr/local/bin/argo
