@@ -81,7 +81,7 @@ chmod +x /usr/local/bin/clusterctl
 test -x /usr/local/bin/clusterctl 2>&1 || exit 1
 
 # renovate: datasource=github-releases depName=cilium/cilium-cli
-export CILIUMCLI_VERSION=v0.9.1
+export CILIUMCLI_VERSION=v0.9.2
 curl -fsSL "https://github.com/cilium/cilium-cli/releases/download/${CILIUMCLI_VERSION}/cilium-linux-amd64.tar.gz" \
     | tar xvz -f - -C /tmp
 mv /tmp/cilium /usr/local/bin/cilium
