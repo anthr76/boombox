@@ -4,7 +4,7 @@ FROM docker.io/argoproj/argocli:v3.2.3 as argo-cli
 FROM docker.io/aquasec/trivy:0.20.2 as trivy
 FROM docker.io/bitnami/kubectl:1.22.3 as kubectl
 FROM docker.io/cytopia/kubeval:0.16 as kubeval
-FROM docker.io/fluxcd/flux-cli:v0.20.0 as flux
+FROM docker.io/fluxcd/flux-cli:v0.20.1 as flux
 FROM docker.io/hadolint/hadolint:v2.7.0 as hadolint
 FROM docker.io/jnorwood/helm-docs:v1.5.0 as helm-docs
 FROM docker.io/kubesec/kubesec:v2.11.4 as kubesec
