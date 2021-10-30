@@ -74,7 +74,7 @@ chmod +x /usr/local/bin/talosctl
 test -x /usr/local/bin/talosctl 2>&1 || exit 1
 
 # renovate: datasource=github-releases depName=kubernetes-sigs/cluster-api
-export CLUSTERCTL_VERSION=v0.3.23
+export CLUSTERCTL_VERSION=v0.4.4
 curl -fsSL -o /usr/local/bin/clusterctl \
     "https://github.com/kubernetes-sigs/cluster-api/releases/download/${CLUSTERCTL_VERSION}/clusterctl-linux-amd64"
 chmod +x /usr/local/bin/clusterctl
