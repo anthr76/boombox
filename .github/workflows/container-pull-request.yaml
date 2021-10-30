@@ -14,7 +14,7 @@ jobs:
         id: build
         uses: redhat-actions/buildah-build@v2.7
         with:
-         image: tooling
+         image: boombox
          tags: ${{github.event.number}}
          oci: true
          layers: true

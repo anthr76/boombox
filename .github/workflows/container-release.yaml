@@ -22,7 +22,7 @@ jobs:
         id: build
         uses: redhat-actions/buildah-build@v2.7
         with:
-         image: tooling
+         image: boombox
          tags: v${{ steps.prep.outputs.version }} latest
          oci: true
          layers: true
