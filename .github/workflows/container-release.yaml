@@ -27,6 +27,8 @@ jobs:
          oci: true
          layers: true
          containerfiles: ./Containerfile
+         extra-args: |
+           --squash-all
         
       - name: Push
         uses: redhat-actions/push-to-registry@v2.3.2

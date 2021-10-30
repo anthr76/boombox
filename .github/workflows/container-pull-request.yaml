@@ -19,4 +19,5 @@ jobs:
          oci: true
          layers: true
          containerfiles: ./Containerfile
-      
+         extra-args: |
+           --squash-all
