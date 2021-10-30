@@ -28,7 +28,7 @@ jobs:
          layers: true
          containerfiles: ./Containerfile
          extra-args: |
-           --squash-all
+           --squash
         
       - name: Push
         uses: redhat-actions/push-to-registry@v2.3.2

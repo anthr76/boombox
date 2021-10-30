@@ -20,4 +20,4 @@ jobs:
          layers: true
          containerfiles: ./Containerfile
          extra-args: |
-           --squash-all
+           --squash
