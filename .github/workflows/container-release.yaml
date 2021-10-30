@@ -20,7 +20,7 @@ jobs:
 
       - name: Build
         id: build
-        uses: redhat-actions/buildah-build@v2.7
+        uses: redhat-actions/buildah-build@v2.8
         with:
          image: boombox
          tags: v${{ steps.prep.outputs.version }} latest
