@@ -28,11 +28,11 @@ jobs:
          layers: true
          containerfiles: ./Containerfile
         
-        - name: Push
-          uses: redhat-actions/push-to-registry@v2.3.2
-          with:
-           image: ${{ steps.build.outputs.image }}
-           tags:  ${{ steps.build.outputs.tags }}
-           registry: ghcr.io/${{ github.actor }}
-           username: ${{ github.actor }}
-           password: ${{ secrets.CR_TOKEN }}
+      - name: Push
+        uses: redhat-actions/push-to-registry@v2.3.2
+        with:
+         image: ${{ steps.build.outputs.image }}
+         tags:  ${{ steps.build.outputs.tags }}
+         registry: ghcr.io/${{ github.actor }}
+         username: ${{ github.actor }}
+         password: ${{ secrets.CR_TOKEN }}
