@@ -1,10 +1,10 @@
 # static binary dependencies
 FROM docker.io/alpine/helm:3.7.1 as helm
-FROM docker.io/argoproj/argocli:v3.2.2 as argo-cli
+FROM docker.io/argoproj/argocli:v3.2.3 as argo-cli
 FROM docker.io/aquasec/trivy:0.20.2 as trivy
-FROM docker.io/bitnami/kubectl:1.22.2 as kubectl
+FROM docker.io/bitnami/kubectl:1.22.3 as kubectl
 FROM docker.io/cytopia/kubeval:0.16 as kubeval
-FROM docker.io/fluxcd/flux-cli:v0.19.1 as flux
+FROM docker.io/fluxcd/flux-cli:v0.20.0 as flux
 FROM docker.io/hadolint/hadolint:v2.7.0 as hadolint
 FROM docker.io/jnorwood/helm-docs:v1.5.0 as helm-docs
 FROM docker.io/kubesec/kubesec:v2.11.4 as kubesec
@@ -12,13 +12,13 @@ FROM docker.io/mikefarah/yq:4.13.5 as yq
 FROM docker.io/minio/mc:RELEASE.2021-10-07T04-19-58Z as minio-mc
 FROM docker.io/prom/alertmanager:v0.23.0 as prom-am
 FROM docker.io/prom/prometheus:v2.30.3 as prom
-FROM docker.io/zegl/kube-score:v1.12.0 as kube-score
+FROM docker.io/zegl/kube-score:v1.13.0 as kube-score
 FROM docker.io/drwetter/testssl.sh:3.0 as testssl
-FROM docker.io/amazon/aws-cli:2.3.0 as awscli
+FROM docker.io/amazon/aws-cli:2.3.2 as awscli
 FROM k8s.gcr.io/kustomize/kustomize:v4.4.0 as kustomize
 
 # base image
-FROM registry.fedoraproject.org/fedora:35@sha256:27fa1069522ec3a7c5aabc17da3889bb3a82ddf0f75da87515b0a9b805b6082d
+FROM registry.fedoraproject.org/fedora:35@sha256:b6f50408eea9177696c55d3db523f0bacbbed8d3d294f4b12566f24ec7a3078c
 
 # copy binaries from static binary dependencies
 COPY --from=argo-cli   /bin/argo                        /usr/local/bin/argo
@@ -73,7 +73,7 @@ ENV GH_VERSION=v2.2.0
 # renovate: datasource=github-releases depName=mozilla/sops
 ENV SOPS_VERSION=v3.7.1
 # renovate: datasource=github-releases depName=hashicorp/terraform
-ENV TERRAFORM_VERSION=v1.0.9
+ENV TERRAFORM_VERSION=v1.0.10
 # renovate: datasource=github-releases depName=hashicorp/vault
 ENV VAULT_VERSION=v1.8.4
 COPY hack/hashicorp.repo /etc/yum.repos.d/hashicorp.repo
