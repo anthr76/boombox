@@ -19,20 +19,20 @@ jobs:
           echo ::set-output name=version::${GITHUB_REF##*/}
 
       - name: Build
-          id: build
-          uses: redhat-actions/buildah-build@v2.7
-          with:
-            image: tooling
-            tags: v${{ steps.prep.outputs.version }} latest
-            oci: true
-            layers: true
-            containerfiles: ./Containerfile
+        id: build
+        uses: redhat-actions/buildah-build@v2.7
+        with:
+         image: tooling
+         tags: v${{ steps.prep.outputs.version }} latest
+         oci: true
+         layers: true
+         containerfiles: ./Containerfile
         
         - name: Push
           uses: redhat-actions/push-to-registry@v2.3.2
           with:
-            image: ${{ steps.build.outputs.image }}
-            tags:  ${{ steps.build.outputs.tags }}
-            registry: ghcr.io/${{ github.actor }}
-            username: ${{ github.actor }}
-            password: ${{ secrets.CR_TOKEN }}
+           image: ${{ steps.build.outputs.image }}
+           tags:  ${{ steps.build.outputs.tags }}
+           registry: ghcr.io/${{ github.actor }}
+           username: ${{ github.actor }}
+           password: ${{ secrets.CR_TOKEN }}

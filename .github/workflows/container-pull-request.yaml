@@ -14,9 +14,9 @@ jobs:
         id: build
         uses: redhat-actions/buildah-build@v2.7
         with:
-          image: tooling
-          tags: ${{github.event.number}}
-          oci: true
-          layers: true
-          containerfiles: ./Containerfile
+         image: tooling
+         tags: ${{github.event.number}}
+         oci: true
+         layers: true
+         containerfiles: ./Containerfile
       
