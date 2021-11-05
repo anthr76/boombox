@@ -11,7 +11,7 @@ FROM docker.io/kubesec/kubesec:v2.11.4 as kubesec
 FROM docker.io/mikefarah/yq:4.13.5 as yq
 FROM docker.io/minio/mc:RELEASE.2021-10-07T04-19-58Z as minio-mc
 FROM docker.io/prom/alertmanager:v0.23.0 as prom-am
-FROM docker.io/prom/prometheus:v2.30.3 as prom
+FROM docker.io/prom/prometheus:v2.31.1 as prom
 FROM docker.io/zegl/kube-score:v1.13.0 as kube-score
 FROM docker.io/drwetter/testssl.sh:3.0 as testssl
 FROM docker.io/amazon/aws-cli:2.3.2 as awscli
