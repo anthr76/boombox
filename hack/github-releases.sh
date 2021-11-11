@@ -59,7 +59,7 @@ test -x /usr/local/bin/velero 2>&1 || exit 1
 rm -rf /tmp/*
 
 # renovate: datasource=github-releases depName=sachaos/viddy
-export VIDDY_VERSION=v0.3.1
+export VIDDY_VERSION=v0.3.3
 curl -fsSL "https://github.com/sachaos/viddy/releases/download/${VIDDY_VERSION}/viddy_${VIDDY_VERSION#*v}_Linux_x86_64.tar.gz" \
     | tar xvz -f - -C /tmp
 mv /tmp/viddy /usr/local/bin/viddy
