@@ -35,7 +35,7 @@ test -x /usr/local/bin/shfmt 2>&1 || exit 1
 rm -rf /tmp/*
 
 # renovate: datasource=github-releases depName=starship/starship
-export STARSHIP_VERSION=v0.58.0
+export STARSHIP_VERSION=v1.0.0
 curl -fsSL "https://github.com/starship/starship/releases/download/${STARSHIP_VERSION}/starship-x86_64-unknown-linux-gnu.tar.gz" \
     | tar xvz -f - -C /tmp
 mv /tmp/starship /usr/local/bin/starship
