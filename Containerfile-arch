@@ -8,6 +8,7 @@ COPY hack/02-shim.sh /etc/profile.d/02-shim.sh
 RUN \
     bash -c " \
     pacman --needed --noconfirm -Syu && \
+    mkdir -p /etc/sudoers.d && \
     echo '%wheel ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/toolbox && \
     touch /etc/machine-id && \
     pacman --noconfirm --needed -S curl fish neovim \
