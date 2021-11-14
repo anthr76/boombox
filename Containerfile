@@ -15,7 +15,7 @@ FROM docker.io/prom/prometheus:v2.30.3 as prom
 FROM docker.io/zegl/kube-score:v1.13.0 as kube-score
 FROM docker.io/drwetter/testssl.sh:3.0 as testssl
 FROM docker.io/amazon/aws-cli:2.3.2 as awscli
-FROM k8s.gcr.io/kustomize/kustomize:v4.4.0 as kustomize
+FROM k8s.gcr.io/kustomize/kustomize:v4.4.1 as kustomize
 
 # base image (skopeo inspect  --format "Name: {{.Name}} Digest: {{.Digest}}" docker://registry.fedoraproject.org/fedora:35)
 FROM registry.fedoraproject.org/fedora@sha256:b6f50408eea9177696c55d3db523f0bacbbed8d3d294f4b12566f24ec7a3078c
