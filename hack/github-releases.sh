@@ -3,7 +3,7 @@
 set -eux
 
 # renovate: datasource=github-releases depName=projectcalico/calicoctl
-export CALICOCTL_VERSION=v3.20.2
+export CALICOCTL_VERSION=v3.21.0
 curl -fsSL -o /usr/local/bin/calicoctl \
     "https://github.com/projectcalico/calicoctl/releases/download/${CALICOCTL_VERSION}/calicoctl-linux-amd64"
 chmod +x /usr/local/bin/calicoctl
