@@ -1,0 +1,85 @@
+FROM docker.io/library/archlinux@sha256:4371fd5b5d2d99ee73e25b3b9a8d7b2258e371852dd0c5681802bf94b069aadf
+
+COPY hack/host-runner /usr/libexec/toolbox/host-runner
+COPY hack/pkgs.arch /opt/pkgs
+COPY hack/01-shim.sh /etc/profile.d/01-shim.sh
+COPY hack/02-shim.sh /etc/profile.d/02-shim.sh
+
+RUN \
+    bash -c " \
+    pacman --needed --noconfirm -Syu && \
+    echo '%wheel ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/toolbox && \
+    touch /etc/machine-id && \
+    pacman --noconfirm --needed -S curl fish neovim \
+        diffutils \
+        flatpak-xdg-utils \
+        git \
+        gnupg \
+        keyutils \
+        lsof \
+        man-db \
+        man-pages \
+        mlocate \
+        mtr \
+        nss-mdns \
+        openssh \
+        pigz \
+        procps-ng \
+        rsync \
+        tcpdump \
+        time \
+        traceroute \
+        tree \
+        unzip \
+        vte-common \
+        wget \
+        words \
+        xorg-xauth \
+        zip \
+        reflector && \
+    ls /usr/libexec/toolbox && \
+    chmod +x /usr/libexec/toolbox/host-runner && \
+    chmod 444 /opt/pkgs && \
+    ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/flatpak && \
+    ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/virsh && \
+    ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/skopeo && \
+    ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/buildah && \
+    ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/virt-install && \
+    ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/ostree && \
+    ln -s /usr/libexec/toolbox/host-runner /usr/libexec/toolbox/rpm-ostree && \
+    pacman -S --noconfirm --needed base-devel git asp && \
+    useradd -g wheel -d /home/makepkg makepkg && \
+    mkdir -p /home/makepkg/{.config/pacman,.gnupg,out} && \
+    echo 'MAKEFLAGS=\x22-j$(nproc)\x22' >> /home/makepkg/.config/pacman/makepkg.conf && \
+    echo 'PKGDEST=\x22/home/makepkg/out\x22' >> /home/makepkg/.config/pacman/makepkg.conf && \
+    echo 'keyserver-options auto-key-retrieve' > /home/makepkg/.gnupg/gpg.conf && \
+    chown -R makepkg:wheel /home/makepkg && \
+    sudo -u makepkg git clone https://aur.archlinux.org/paru-bin.git /home/makepkg/paru && \
+    cd /home/makepkg/paru && \
+    sudo -u makepkg makepkg --noconfirm -si && \
+    sudo -u makepkg makepkg --printsrcinfo > .SRCINFO && \
+    cat .SRCINFO && \
+    mv .SRCINFO /opt/paru.SRCINFO && \
+    cd / && \
+    userdel makepkg && \
+    rm -rf /root && rm -rf /home/makepkg && \
+    mkdir /root && \
+    chmod -R 777 /root && \
+    pacman -Scc --noconfirm"
+
+# Copy opionated config at the end to reduce on size -- https://github.com/containers/toolbox/pull/861#issuecomment-903122837
+COPY hack/pacman.conf /etc/pacman.conf
+COPY hack/mirrorupgrade.hook /etc/pacman.d/hooks/mirrorupgrade.hook
+
+CMD ["/bin/sh"]
+
+LABEL org.opencontainers.image.source = https://github.com/anthr76/tooling
+
+ENV NAME=arch-toolbox
+LABEL com.github.containers.toolbox="true" \
+      com.redhat.component="$NAME" \
+      name="$NAME" \
+      version="$VERSION" \
+      usage="This image is meant to be used with the toolbox command" \
+      summary="Arch toolbox" \
+      maintainer="Anthony Rabbito <hello@anthonyrabbito.com>, Devin Buhl <devin.kray@gmail.com>, Ryan Walter <rwalt@pm.me>, Stefan Crain <stefancrain@gmail.com>"
