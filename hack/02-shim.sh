@@ -2,4 +2,4 @@
 
 # shellcheck shell=sh
 
-paru -Syu --needed - < /opt/pkgs
+alias boombox="paru -Syu --needed - < /opt/pkgs"

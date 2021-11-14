@@ -3,6 +3,7 @@ FROM docker.io/library/archlinux@sha256:4371fd5b5d2d99ee73e25b3b9a8d7b2258e37185
 COPY hack/host-runner /usr/libexec/toolbox/host-runner
 COPY hack/pkgs.arch /opt/pkgs
 COPY hack/01-shim.sh /etc/profile.d/01-shim.sh
+COPY hack/02-shim.sh /etc/profile.d/02-shim.sh
 
 RUN \
     bash -c " \

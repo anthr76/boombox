@@ -8,6 +8,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+       fail-fast: false
+       include:
+         - containerfile: Containerfile
+           image: "boombox"
+         - containerfile: Containerfile-arch
+           image: "boombox-arch"
     if: github.event_name != 'pull_request'
     steps:
       - name: Checkout
@@ -22,11 +30,11 @@ jobs:
         id: build
         uses: redhat-actions/buildah-build@v2.7
         with:
-         image: boombox
+         image: ${{ matrix.image }}
          tags: v${{ steps.prep.outputs.version }} latest
          oci: true
          layers: true
-         containerfiles: ./Containerfile
+         containerfiles: ./${{ matrix.containerfile }}
          extra-args: |
            --squash
         

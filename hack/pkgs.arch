@@ -32,4 +32,6 @@ yubikey-manager
 yubikey-manager-qt
 opensc
 fzf
+tmux
+kustomize
 yubico-piv-tool

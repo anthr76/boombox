@@ -6,6 +6,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+       fail-fast: false
+       include:
+         - containerfile: Containerfile
+           image: "boombox"
+         - containerfile: Containerfile-arch
+           image: "boombox-arch"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -14,10 +22,10 @@ jobs:
         id: build
         uses: redhat-actions/buildah-build@v2.7
         with:
-         image: boombox
+         image: ${{ matrix.image }}
          tags: ${{github.event.number}}
          oci: true
          layers: true
-         containerfiles: ./Containerfile
+         containerfiles: ./${{ matrix.containerfile }}
          extra-args: |
            --squash
