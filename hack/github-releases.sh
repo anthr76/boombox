@@ -11,7 +11,7 @@ test -x /usr/local/bin/calicoctl 2>&1 || exit 1
 rm -rf /tmp/*
 
 # renovate: datasource=github-releases depName=schollz/croc
-export CROC_VERSION=v9.4.2
+export CROC_VERSION=v9.5.0
 curl -fsSL "https://github.com/schollz/croc/releases/download/${CROC_VERSION}/croc_${CROC_VERSION#*v}_Linux-64bit.tar.gz" \
     | tar xvz -f - -C /tmp
 mv /tmp/croc /usr/local/bin/croc
