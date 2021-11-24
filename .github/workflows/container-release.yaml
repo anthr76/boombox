@@ -28,7 +28,7 @@ jobs:
 
       - name: Build
         id: build
-        uses: redhat-actions/buildah-build@v2.8
+        uses: redhat-actions/buildah-build@v2.9
         with:
          image: ${{ matrix.image }}
          tags: v${{ steps.prep.outputs.version }} latest
