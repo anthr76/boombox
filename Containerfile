@@ -18,7 +18,7 @@ FROM docker.io/amazon/aws-cli:2.3.2 as awscli
 FROM k8s.gcr.io/kustomize/kustomize:v4.4.1 as kustomize
 
 # base image (skopeo inspect  --format "Name: {{.Name}} Digest: {{.Digest}}" docker://registry.fedoraproject.org/fedora:35)
-FROM registry.fedoraproject.org/fedora@sha256:b6f50408eea9177696c55d3db523f0bacbbed8d3d294f4b12566f24ec7a3078c
+FROM registry.fedoraproject.org/fedora@sha256:2d697a06d17691e87212cf248f499dd47db2e275dfe642ffca5975353ea89887
 
 # copy binaries from static binary dependencies
 COPY --from=argo-cli   /bin/argo                        /usr/local/bin/argo
