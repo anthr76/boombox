@@ -51,7 +51,7 @@ test -x /usr/local/bin/stern 2>&1 || exit 1
 rm -rf /tmp/*
 
 # renovate: datasource=github-releases depName=vmware-tanzu/velero
-export VELERO_VERSION=v1.7.0
+export VELERO_VERSION=v1.7.1
 curl -fsSL "https://github.com/vmware-tanzu/velero/releases/download/${VELERO_VERSION}/velero-${VELERO_VERSION}-linux-amd64.tar.gz" \
     | tar xvz -f - --strip-components=1 -C /tmp
 mv /tmp/velero /usr/local/bin/velero
