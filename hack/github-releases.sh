@@ -19,7 +19,7 @@ test -x /usr/local/bin/croc 2>&1 || exit 1
 rm -rf /tmp/*
 
 # renovate: datasource=github-releases depName=sbstp/kubie
-export KUBIE_VERSION=v0.15.1
+export KUBIE_VERSION=v0.15.3
 curl -fsSL -o /usr/local/bin/kubie \
     "https://github.com/sbstp/kubie/releases/download/${KUBIE_VERSION}/kubie-linux-amd64"
 chmod +x /usr/local/bin/kubie
