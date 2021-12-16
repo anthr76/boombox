@@ -43,7 +43,7 @@ test -x /usr/local/bin/starship 2>&1 || exit 1
 rm -rf /tmp/*
 
 # renovate: datasource=github-releases depName=stern/stern
-export STERN_VERSION=v1.20.1
+export STERN_VERSION=v1.21.0
 curl -fsSL "https://github.com/stern/stern/releases/download/${STERN_VERSION}/stern_${STERN_VERSION#*v}_linux_amd64.tar.gz" \
     | tar xvz -f - --strip-components=1 -C /tmp
 mv /tmp/stern /usr/local/bin/stern
