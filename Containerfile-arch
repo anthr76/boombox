@@ -72,7 +72,7 @@ RUN \
 COPY hack/pacman.conf /etc/pacman.conf
 COPY hack/mirrorupgrade.hook /etc/pacman.d/hooks/mirrorupgrade.hook
 
-CMD ["/bin/sh"]
+CMD ["/usr/sbin/fish"]
 
 LABEL org.opencontainers.image.source = https://github.com/anthr76/tooling
 
@@ -84,3 +84,4 @@ LABEL com.github.containers.toolbox="true" \
       usage="This image is meant to be used with the toolbox command" \
       summary="Arch toolbox" \
       maintainer="Anthony Rabbito <hello@anthonyrabbito.com>, Devin Buhl <devin.kray@gmail.com>, Ryan Walter <rwalt@pm.me>, Stefan Crain <stefancrain@gmail.com>"
+
