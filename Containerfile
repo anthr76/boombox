@@ -75,7 +75,7 @@ ENV SOPS_VERSION=v3.7.1
 # renovate: datasource=github-releases depName=hashicorp/terraform
 ENV TERRAFORM_VERSION=v1.0.11
 # renovate: datasource=github-releases depName=hashicorp/vault
-ENV VAULT_VERSION=v1.8.5
+ENV VAULT_VERSION=v1.9.2
 COPY hack/hashicorp.repo /etc/yum.repos.d/hashicorp.repo
 RUN \
   dnf install -y \
