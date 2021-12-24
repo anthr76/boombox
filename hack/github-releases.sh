@@ -27,7 +27,7 @@ test -x /usr/local/bin/kubie 2>&1 || exit 1
 rm -rf /tmp/*
 
 # renovate: datasource=github-releases depName=mvdan/sh
-export SHFMT_VERSION=v3.4.0
+export SHFMT_VERSION=v3.4.2
 curl -fsSL -o /usr/local/bin/shfmt \
     "https://github.com/mvdan/sh/releases/download/${SHFMT_VERSION}/shfmt_${SHFMT_VERSION}_linux_amd64"
 chmod +x /usr/local/bin/shfmt
