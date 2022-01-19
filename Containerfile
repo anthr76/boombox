@@ -6,7 +6,7 @@ FROM docker.io/bitnami/kubectl:1.22.3 as kubectl
 FROM docker.io/cytopia/kubeval:0.16 as kubeval
 FROM docker.io/fluxcd/flux-cli:v0.24.0 as flux
 FROM docker.io/hadolint/hadolint:v2.8.0 as hadolint
-FROM docker.io/jnorwood/helm-docs:v1.5.0 as helm-docs
+FROM docker.io/jnorwood/helm-docs:v1.7.0 as helm-docs
 FROM docker.io/kubesec/kubesec:v2.11.4 as kubesec
 FROM docker.io/mikefarah/yq:4.14.2 as yq
 FROM docker.io/minio/mc:RELEASE.2021-10-07T04-19-58Z as minio-mc
