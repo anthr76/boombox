@@ -73,7 +73,7 @@ ENV GH_VERSION=v2.2.0
 # renovate: datasource=github-releases depName=mozilla/sops
 ENV SOPS_VERSION=v3.7.1
 # renovate: datasource=github-releases depName=hashicorp/terraform
-ENV TERRAFORM_VERSION=v1.0.11
+ENV TERRAFORM_VERSION=v1.1.4
 # renovate: datasource=github-releases depName=hashicorp/vault
 ENV VAULT_VERSION=v1.8.5
 COPY hack/hashicorp.repo /etc/yum.repos.d/hashicorp.repo
