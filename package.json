@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "@bitwarden/cli": "^1.18.1",
-    "markdownlint-cli": "^0.29.0",
-    "prettier": "^2.4.1"
-  }
-}
