@@ -1,4 +1,4 @@
-FROM docker.io/library/archlinux@sha256:09cb5c65e147de3999f8b4ebf0eff04dfaeaab0726a1c1d896c48add98390841
+FROM docker.io/library/archlinux@sha256:d2f3f01b2f51fc4120a2670f735fee444ab707eeb2ba5f97a5d1fee5fc13526c
 
 COPY hack/host-runner /usr/libexec/toolbox/host-runner
 COPY hack/pkgs.arch /opt/pkgs
