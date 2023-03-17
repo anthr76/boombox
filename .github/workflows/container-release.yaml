@@ -37,7 +37,7 @@ jobs:
            --squash
         
       - name: Push
-        uses: redhat-actions/push-to-registry@v2.5.1
+        uses: redhat-actions/push-to-registry@v2.7.1
         with:
          image: ${{ steps.build.outputs.image }}
          tags:  ${{ steps.build.outputs.tags }}
