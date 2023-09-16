@@ -1,6 +1,6 @@
 {
   "dependencies": {
     "conventional-changelog-conventionalcommits": "^4.6.1",
-    "semantic-release": "^19.0.0"
+    "semantic-release": "^22.0.0"
   }
 }
