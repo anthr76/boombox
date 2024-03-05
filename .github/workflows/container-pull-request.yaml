@@ -18,7 +18,7 @@ jobs:
 
       - name: Build
         id: build
-        uses: redhat-actions/buildah-build@v2.9
+        uses: redhat-actions/buildah-build@v2.13
         with:
          image: ${{ matrix.image }}
          tags: ${{github.event.number}}
